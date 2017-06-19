@@ -8,6 +8,8 @@ from scipy.stats import hypergeom
 from sklearn.metrics import adjusted_rand_score
 from pandas_datareader import data
 import time
+from all_functions import importdata, MST
+
 
 def NXtoIG(nxgraph):
     """Convert a networkx network to an igraph network"""
@@ -18,6 +20,7 @@ def NXtoIG(nxgraph):
     for i in range(0, len(edgelist)):
         G[edgelist[i][0], edgelist[i][1]] = edgelist[i][2]['weight']
     return G
+
 
 def createlabel(clustering, names):
     """Label nodes in a clustering with their respective clusters"""
@@ -31,6 +34,7 @@ def createlabel(clustering, names):
     for i in range(0, len(names)):
         labels[i] = int(labeldict[names[i]])
     return labeldict, labels
+
 
 def HGT_clustering(total_clusters, clusters, nodenames):
     """Clustering using hypergeometric test, keeping the labeling of the clusters throughout"""
@@ -55,6 +59,91 @@ def HGT_clustering(total_clusters, clusters, nodenames):
         new_current_date_clusters[sorteddates[i]] = current_cluster_list
     return new_current_date_clusters
 
+
+def label_clusters(clustering1, clustering2, p_value=0.01):
+    # type: (dict, list, float) -> dict
+    """inputs: clustering1: dict of clusters,
+        clustering2: list of clusters, method: 'HGT' or 'maxoverlap',
+        p_value: the threshold for HGT.
+    returns a clustering2 as a dictionary of clusters with similar clusters in the same order as clustering1"""
+    N = 0
+    for cluster in clustering1.values():
+        N = N + len(cluster)
+    result = {}
+    ordered_keys = sorted(clustering1, key=lambda k: len(clustering1[k]), reverse=True)
+    c2 = clustering2[:]
+    c2.sort(key=len, reverse=True)
+    for key in ordered_keys:
+        if not c2:
+            break
+        for c in c2:
+            overlap = len(set(clustering1[key]).intersection(c))
+            p = hypergeom.pmf(overlap, N, len(c), len(clustering1[key]))
+            if p < p_value:
+                result[key] = c
+                c2.remove(c)
+                break
+    lastindex = max(ordered_keys) + 1
+    for c in c2:
+        result[lastindex] = c
+        lastindex = lastindex + 1
+    return result
+
+
+def total_clustering(enddate, startdate, filename="SP100_20170612.csv", method='Newman'):
+    df = importdata(filename)[1]
+    end = int(np.where(df.index == enddate)[0])
+    start = int(np.where(df.index == startdate)[0])
+    total_tree = MST(filename=filename, window=end - start + 1,
+                     enddate=enddate,
+                     startdate=df.index[int(np.where(df.index == startdate)[0]) - 1].strftime('%Y-%m-%d'),
+                     space=1)[df.index[int(np.where(df.index == startdate)[0])].strftime('%Y-%m-%d')]
+    IGtree = NXtoIG(total_tree)
+    if method == 'Newman':
+        C = IGtree.community_leading_eigenvector(weights="weight")
+        clustersNewman = list(C)
+        for i in range(0, len(C)):
+            clustersNewman[i] = [IGtree.vs["name"][j] for j in C[i]]
+        clustersNewman.sort(key=len, reverse=True)
+        return {i + 1: clustersNewman[i] for i in range(len(clustersNewman))}
+    elif method == 'ClausetNewman':
+        C = IGtree.community_fastgreedy(weights="weight").as_clustering()
+        clustersClausetNewman = list(C)
+        for i in range(0, len(C)):
+            clustersClausetNewman[i] = [IGtree.vs["name"][j] for j in C[i]]
+        clustersClausetNewman.sort(key=len, reverse=True)
+        return {i + 1: clustersClausetNewman[i] for i in range(len(clustersClausetNewman))}
+    else:
+        print("method can only be 'Newman' or 'ClausetNewman', your input is '%s'." % method)
+
+
+def label_clustering_series(series, baseline_clustering=None, option='continuous', p_value=0.01):
+    """inputs: series: a dictionary of clusterings corresponding to dates
+                baseline_clustering (optional): a dictionary, baseline clustering for labeling
+                option: can be either 'continuous', which assigns date t's labeling according to date t-1's
+                        or 'baseline', which label the clustering in every timestamp according to the baseline clustering
+        returns a dictionary of dictionary of clusterings: {date: {label:cluster,label:cluster...}...}"""
+    sorteddates = sorted(series.keys(), key=lambda d: map(int, d.split('-')))
+    results = {}
+    if option == 'continuous':
+        temp = series[sorteddates[0]][:]
+        temp.sort(key=len, reverse=True)
+        results[sorteddates[0]] = {i + 1: temp[i] for i in range(len(series[sorteddates[0]]))}
+        for t in range(1, len(sorteddates)):
+            results[sorteddates[t]] = label_clusters(results[sorteddates[t - 1]],
+                                                     series[sorteddates[t]], p_value=p_value)
+        return results
+    elif option == 'baseline':
+
+        for t in range(len(sorteddates)):
+            results[sorteddates[t]] = label_clusters(baseline_clustering,
+                                                     series[sorteddates[t]], p_value=p_value)
+        return results
+    else:
+        print("option can only be 'continuous' or 'baseline', your input is %s." % option)
+        return None
+
+
 def metacorrelation(time_window_a, time_window_b):
     df = importdata("SP100_prices.csv")[1]
     rc = rolling_corr(df)
@@ -70,6 +159,7 @@ def metacorrelation(time_window_a, time_window_b):
     metacorrelation = sum_dot / (((sum2_a - sum_a2) * (sum2_b - sum_b2)) ** (1 / 2))
     return metacorrelation
 
+
 def movingARI(clusters, nodenames):
     """Compute the moving adjusted Rand index"""
     sorteddates = sorted(clusters.keys(), key=lambda d: map(int, d.split('-')))
@@ -79,6 +169,8 @@ def movingARI(clusters, nodenames):
                                          createlabel(clusters[sorteddates[i - 1]], nodenames)[1])
     return ARI
 
+
+# pick one if there are several stocks with the same highest centrality
 def portfolio(MST, c_measure, quantile=0.25, option='upper'):
     """Return a list of the upper or lower 25%(default) of stocks sorted by centrality.
     If the quantile is 0, would return the single one with the highest (lowest) centrality"""
@@ -112,6 +204,7 @@ def portfolio(MST, c_measure, quantile=0.25, option='upper'):
         return None
     return stock_list
 
+
 def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
     """compute the central and peripheral universe according to a given list of clusterings"""
     result = {}
@@ -134,6 +227,7 @@ def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
         result[k] = subresult
     return result
 
+
 def cov_matrix(df, stocklist, window=250, enddate="2017-02-28"):
     """To generate correlation matrix for a certain period, method = 'gower' or 'power',
      differs from the one in 'all_functions.py' by the last argument"""
@@ -143,6 +237,7 @@ def cov_matrix(df, stocklist, window=250, enddate="2017-02-28"):
     # print(sub)
     cov_mat = np.cov(sub.T)
     return cov_mat
+
 
 ## still need to deal with the situation when enddate is not in the index.
 def min_variance_weights(cov):
@@ -156,6 +251,7 @@ def min_variance_weights(cov):
     weights = solvers.qp(S, q, G, h, A, b)["x"]
     risk = np.sqrt(blas.dot(weights, S * weights))
     return np.asarray(weights), risk
+
 
 def clustering_performance(universes, weighted='TRUE'):
     price, log_ret = importdata("SP100_prices.csv")
@@ -181,6 +277,7 @@ def clustering_performance(universes, weighted='TRUE'):
                                                                          price[t:t][universes[t][j]].as_matrix()[0]))
     return result
 
+
 def download_daily_data(symbollist, filename):
     store = pd.HDFStore(filename)
     for i in symbollist:
@@ -190,3 +287,9 @@ def download_daily_data(symbollist, filename):
         except:
             pass
     store.close()
+
+# store data in dictionaries with more attributes
+
+# diameter of trees, number and diameters of clusters
+# definition of market regime based on the above
+# monitor how regime reacts to news

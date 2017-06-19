@@ -88,6 +88,7 @@ def draw_network(G):
     plt.axis('off')
     plt.show()
 
+# connect to quandl
 def importdata(filename):
     """imports data from a .csv file, returns a pandas dataframe of prices and another of log returns"""
     df = pd.read_csv(filename)
@@ -115,6 +116,7 @@ def MST(filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate
         trees[key] = T
     return trees
 
+# one function to do different centrality
 def weighted_degree_centrality(T):
     """Return a dictionary of weighted degree centrality for each node,
     the weighted degree is defined as (2-gower weight)"""
