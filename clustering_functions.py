@@ -38,7 +38,7 @@ def createlabel(clustering, names):
 
 def HGT_clustering(total_clusters, clusters, nodenames):
     """Clustering using hypergeometric test, keeping the labeling of the clusters throughout"""
-    sorteddates = sorted(clusters.keys(), key=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(clusters.ts(), t=lambda d: map(int, d.split('-')))
     # The total number of elements within all the clusters is N for the whole time frame
     N = 0
     for cluster in total_clusters:
@@ -70,20 +70,20 @@ def label_clusters(clustering1, clustering2, p_value=0.01):
     for cluster in clustering1.values():
         N = N + len(cluster)
     result = {}
-    ordered_keys = sorted(clustering1, key=lambda k: len(clustering1[k]), reverse=True)
+    ordered_ts = sorted(clustering1, t=lambda k: len(clustering1[k]), reverse=True)
     c2 = clustering2[:]
-    c2.sort(key=len, reverse=True)
-    for key in ordered_keys:
+    c2.sort(t=len, reverse=True)
+    for t in ordered_ts:
         if not c2:
             break
         for c in c2:
-            overlap = len(set(clustering1[key]).intersection(c))
-            p = hypergeom.pmf(overlap, N, len(c), len(clustering1[key]))
+            overlap = len(set(clustering1[t]).intersection(c))
+            p = hypergeom.pmf(overlap, N, len(c), len(clustering1[t]))
             if p < p_value:
-                result[key] = c
+                result[t] = c
                 c2.remove(c)
                 break
-    lastindex = max(ordered_keys) + 1
+    lastindex = max(ordered_ts) + 1
     for c in c2:
         result[lastindex] = c
         lastindex = lastindex + 1
@@ -91,12 +91,15 @@ def label_clusters(clustering1, clustering2, p_value=0.01):
 
 
 def total_clustering(enddate, startdate, filename="SP100_20170612.csv", method='Newman'):
+    """helper to create a clustering with the whole period starting at startdate, ending at enddate, as the window.
+    method can be 'Newman' or 'ClausetNewman' """
     df = importdata(filename)[1]
     end = int(np.where(df.index == enddate)[0])
     start = int(np.where(df.index == startdate)[0])
     total_tree = MST(filename=filename, window=end - start + 1,
                      enddate=enddate,
                      startdate=df.index[int(np.where(df.index == startdate)[0]) - 1].strftime('%Y-%m-%d'),
+                     # here we pass the date one day before startdate to MST
                      space=1)[df.index[int(np.where(df.index == startdate)[0])].strftime('%Y-%m-%d')]
     IGtree = NXtoIG(total_tree)
     if method == 'Newman':
@@ -104,14 +107,14 @@ def total_clustering(enddate, startdate, filename="SP100_20170612.csv", method='
         clustersNewman = list(C)
         for i in range(0, len(C)):
             clustersNewman[i] = [IGtree.vs["name"][j] for j in C[i]]
-        clustersNewman.sort(key=len, reverse=True)
+        clustersNewman.sort(t=len, reverse=True)
         return {i + 1: clustersNewman[i] for i in range(len(clustersNewman))}
     elif method == 'ClausetNewman':
         C = IGtree.community_fastgreedy(weights="weight").as_clustering()
         clustersClausetNewman = list(C)
         for i in range(0, len(C)):
             clustersClausetNewman[i] = [IGtree.vs["name"][j] for j in C[i]]
-        clustersClausetNewman.sort(key=len, reverse=True)
+        clustersClausetNewman.sort(t=len, reverse=True)
         return {i + 1: clustersClausetNewman[i] for i in range(len(clustersClausetNewman))}
     else:
         print("method can only be 'Newman' or 'ClausetNewman', your input is '%s'." % method)
@@ -121,13 +124,13 @@ def label_clustering_series(series, baseline_clustering=None, option='continuous
     """inputs: series: a dictionary of clusterings corresponding to dates
                 baseline_clustering (optional): a dictionary, baseline clustering for labeling
                 option: can be either 'continuous', which assigns date t's labeling according to date t-1's
-                        or 'baseline', which label the clustering in every timestamp according to the baseline clustering
+                        or 'baseline', which labels the clustering in every timestamp according to the baseline clustering
         returns a dictionary of dictionary of clusterings: {date: {label:cluster,label:cluster...}...}"""
-    sorteddates = sorted(series.keys(), key=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(series.ts(), t=lambda d: map(int, d.split('-')))
     results = {}
     if option == 'continuous':
         temp = series[sorteddates[0]][:]
-        temp.sort(key=len, reverse=True)
+        temp.sort(t=len, reverse=True)
         results[sorteddates[0]] = {i + 1: temp[i] for i in range(len(series[sorteddates[0]]))}
         for t in range(1, len(sorteddates)):
             results[sorteddates[t]] = label_clusters(results[sorteddates[t - 1]],
@@ -162,7 +165,7 @@ def metacorrelation(time_window_a, time_window_b):
 
 def movingARI(clusters, nodenames):
     """Compute the moving adjusted Rand index"""
-    sorteddates = sorted(clusters.keys(), key=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(clusters.ts(), t=lambda d: map(int, d.split('-')))
     ARI = np.empty(len(sorteddates) - 1)
     for i in range(1, len(sorteddates)):
         ARI[i - 1] = adjusted_rand_score(createlabel(clusters[sorteddates[i]], nodenames)[1],
@@ -184,21 +187,21 @@ def portfolio(MST, c_measure, quantile=0.25, option='upper'):
         print('wrong centrality measure.')
         return None
     items = centrality.items()
-    items.sort(key=lambda item: (item[1], item[0]))
+    items.sort(t=lambda item: (item[1], item[0]))
     v = [item[1] for item in items]
-    sorted_keys = [item[0] for item in items]
-    number = int(len(sorted_keys) * quantile)
+    sorted_ts = [item[0] for item in items]
+    number = int(len(sorted_ts) * quantile)
     if number == 0:
         number = 1
     if option == 'lower':
         pos = len(v) - v[::-1].index(v[number])
-        stock_list = sorted_keys[:pos]
+        stock_list = sorted_ts[:pos]
     elif option == 'upper':
         if v[-number] == 0:
             pos = len(v) - v[::-1].index(0)
         else:
             pos = v.index(v[-number])
-        stock_list = sorted_keys[pos:]
+        stock_list = sorted_ts[pos:]
     else:
         print "option must be upper or lower"
         return None
@@ -206,9 +209,9 @@ def portfolio(MST, c_measure, quantile=0.25, option='upper'):
 
 
 def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
-    """compute the central and peripheral universe according to a given list of clusterings"""
+    """compute the central and peripheral universes according to a given dict of {date: clustering}"""
     result = {}
-    sorteddates = sorted(trees.keys(), key=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(trees.ts(), t=lambda d: map(int, d.split('-')))
     for k in sorteddates:
         T = trees[k]
         subresult = {}
@@ -257,8 +260,8 @@ def clustering_performance(universes, weighted='TRUE'):
     price, log_ret = importdata("SP100_prices.csv")
     ret = price / price.shift(1)
     ret = ret.iloc[1:]
-    univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
-    pricedates = sorted(pd.read_csv("SP100_prices.csv")["Date"], key=lambda d: map(int, d.split('-')))
+    univdates = sorted(universes.ts(), t=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.read_csv("SP100_prices.csv")["Date"], t=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
     result = {'central': {}}
     result['central'][univdates[0]] = 1
@@ -288,8 +291,72 @@ def download_daily_data(symbollist, filename):
             pass
     store.close()
 
+
 # store data in dictionaries with more attributes
 
 # diameter of trees, number and diameters of clusters
 # definition of market regime based on the above
 # monitor how regime reacts to news
+
+
+def construct_clusters(trees, method='Newman'):
+    """input: trees: could be either iGraph trees or Networkx trees
+              method: 'Newman' or 'ClausetNewman'"""
+    sorteddates = sorted(trees.keys(), key=lambda d: map(int, d.split('-')))
+    if type(trees[sorteddates[0]]) != ig.Graph:
+        usabletrees = {}
+        for t in sorteddates:
+            usabletrees[t] = NXtoIG(trees[t])
+    else:
+        usabletrees = trees
+    ig.arpack_options.maxiter = 500000
+    clusters = {}
+    IGclusters = {}
+    if method == 'Newman':
+        if type(trees[sorteddates[0]]) != ig.Graph:
+            usabletrees = {}
+            for t in sorteddates:
+                usabletrees[t] = NXtoIG(trees[t])
+        else:
+            usabletrees = trees
+        for t in sorteddates:
+            c = usabletrees[t].community_leading_eigenvector(weights="weight")
+            clusters[t] = list(c)
+            IGclusters[t] = c
+            for i in range(0, len(c)):
+                clusters[t][i] = [usabletrees[t].vs["name"][j] for j in c[i]]
+        return clusters, IGclusters
+    elif method == 'ClausetNewman':
+        if type(trees[sorteddates[0]]) != ig.Graph:
+            usabletrees = {}
+            for t in sorteddates:
+                usabletrees[t] = NXtoIG(trees[t])
+        else:
+            usabletrees = trees
+        for t in sorteddates:
+            c = usabletrees[t].community_fastgreedy(weights="weight").as_clustering()
+            clusters[t] = list(c)
+            IGclusters[t] = c
+            for i in range(0, len(c)):
+                clusters[t][i] = [usabletrees[t].vs["name"][j] for j in c[i]]
+        return clusters, IGclusters
+    else:
+        print ("'method' can only be 'Newman' or 'ClausetNewman'. Your input was '%s'" % method)
+        return None
+
+
+def find_cluster_diameter(labeling, trees, IGclusters, cluster_label):
+    """find the historical diameter on each date for a given cluster (identified by 'cluster_label'"""
+    sorteddates = sorted(labeling.keys(), key=lambda d: map(int, d.split('-')))
+    result = {}
+    for t in sorteddates:
+        try:
+            rep_stock = labeling[t][cluster_label][0]
+            for i in range(len(labeling[t])):
+                if rep_stock in trees[t].subgraph(IGclusters[t][i]).vs["name"]:
+                    result[t] = trees[t].subgraph(IGclusters[t][i]).diameter(directed=False, unconn=False,
+                                                                             weights="weight")
+                    break
+        except:
+            result[t] = np.nan
+    return result
