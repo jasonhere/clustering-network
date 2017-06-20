@@ -233,8 +233,8 @@ def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
 
 
 def cov_matrix(df, stocklist, window=250, enddate="2017-02-28"):
-    """To generate correlation matrix for a certain period, method = 'gower' or 'power',
-     differs from the one in 'all_functions.py' by the last argument"""
+    """To generate correlation matrix for a certain period and a list of stock (stocklist), method = 'gower' or 'power',
+     differs from the one in 'all_functions.py' by the 'stocklist' argument"""
     end = int(np.where(df.index == enddate)[0])
     start = end - window + 1
     sub = df[start:end + 1][stocklist]
@@ -244,6 +244,8 @@ def cov_matrix(df, stocklist, window=250, enddate="2017-02-28"):
 
 
 ## still need to deal with the situation when enddate is not in the index.
+
+
 def min_variance_weights(cov):
     S = opt.matrix(cov)
     n = cov.shape[0]
@@ -361,3 +363,5 @@ def find_cluster_diameter(labeling, trees, IGclusters, cluster_label):
         except:
             result[t] = np.nan
     return result
+
+
