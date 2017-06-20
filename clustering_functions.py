@@ -3,12 +3,13 @@ import cvxopt as opt
 import igraph as ig
 import networkx as nx
 import numpy as np
+import pandas as pd
 from cvxopt import blas, solvers
 from scipy.stats import hypergeom
 from sklearn.metrics import adjusted_rand_score
 from pandas_datareader import data
 import time
-from all_functions import importdata, MST
+from all_functions import importdata, MST, rolling_corr, weighted_degree_centrality
 
 
 def NXtoIG(nxgraph):
@@ -38,7 +39,7 @@ def createlabel(clustering, names):
 
 def HGT_clustering(total_clusters, clusters, nodenames):
     """Clustering using hypergeometric test, keeping the labeling of the clusters throughout"""
-    sorteddates = sorted(clusters.ts(), t=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(clusters.keys(), key=lambda d: map(int, d.split('-')))
     # The total number of elements within all the clusters is N for the whole time frame
     N = 0
     for cluster in total_clusters:
@@ -70,9 +71,9 @@ def label_clusters(clustering1, clustering2, p_value=0.01):
     for cluster in clustering1.values():
         N = N + len(cluster)
     result = {}
-    ordered_ts = sorted(clustering1, t=lambda k: len(clustering1[k]), reverse=True)
+    ordered_ts = sorted(clustering1, key=lambda k: len(clustering1[k]), reverse=True)
     c2 = clustering2[:]
-    c2.sort(t=len, reverse=True)
+    c2.sort(key=len, reverse=True)
     for t in ordered_ts:
         if not c2:
             break
@@ -107,14 +108,14 @@ def total_clustering(enddate, startdate, filename="SP100_20170612.csv", method='
         clustersNewman = list(C)
         for i in range(0, len(C)):
             clustersNewman[i] = [IGtree.vs["name"][j] for j in C[i]]
-        clustersNewman.sort(t=len, reverse=True)
+        clustersNewman.sort(key=len, reverse=True)
         return {i + 1: clustersNewman[i] for i in range(len(clustersNewman))}
     elif method == 'ClausetNewman':
         C = IGtree.community_fastgreedy(weights="weight").as_clustering()
         clustersClausetNewman = list(C)
         for i in range(0, len(C)):
             clustersClausetNewman[i] = [IGtree.vs["name"][j] for j in C[i]]
-        clustersClausetNewman.sort(t=len, reverse=True)
+        clustersClausetNewman.sort(key=len, reverse=True)
         return {i + 1: clustersClausetNewman[i] for i in range(len(clustersClausetNewman))}
     else:
         print("method can only be 'Newman' or 'ClausetNewman', your input is '%s'." % method)
@@ -126,11 +127,11 @@ def label_clustering_series(series, baseline_clustering=None, option='continuous
                 option: can be either 'continuous', which assigns date t's labeling according to date t-1's
                         or 'baseline', which labels the clustering in every timestamp according to the baseline clustering
         returns a dictionary of dictionary of clusterings: {date: {label:cluster,label:cluster...}...}"""
-    sorteddates = sorted(series.ts(), t=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(series.keys(), key=lambda d: map(int, d.split('-')))
     results = {}
     if option == 'continuous':
         temp = series[sorteddates[0]][:]
-        temp.sort(t=len, reverse=True)
+        temp.sort(key=len, reverse=True)
         results[sorteddates[0]] = {i + 1: temp[i] for i in range(len(series[sorteddates[0]]))}
         for t in range(1, len(sorteddates)):
             results[sorteddates[t]] = label_clusters(results[sorteddates[t - 1]],
@@ -165,7 +166,7 @@ def metacorrelation(time_window_a, time_window_b):
 
 def movingARI(clusters, nodenames):
     """Compute the moving adjusted Rand index"""
-    sorteddates = sorted(clusters.ts(), t=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(clusters.keys(), key=lambda d: map(int, d.split('-')))
     ARI = np.empty(len(sorteddates) - 1)
     for i in range(1, len(sorteddates)):
         ARI[i - 1] = adjusted_rand_score(createlabel(clusters[sorteddates[i]], nodenames)[1],
@@ -187,7 +188,7 @@ def portfolio(MST, c_measure, quantile=0.25, option='upper'):
         print('wrong centrality measure.')
         return None
     items = centrality.items()
-    items.sort(t=lambda item: (item[1], item[0]))
+    items.sort(key=lambda item: (item[1], item[0]))
     v = [item[1] for item in items]
     sorted_ts = [item[0] for item in items]
     number = int(len(sorted_ts) * quantile)
@@ -211,7 +212,7 @@ def portfolio(MST, c_measure, quantile=0.25, option='upper'):
 def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
     """compute the central and peripheral universes according to a given dict of {date: clustering}"""
     result = {}
-    sorteddates = sorted(trees.ts(), t=lambda d: map(int, d.split('-')))
+    sorteddates = sorted(trees.keys(), key=lambda d: map(int, d.split('-')))
     for k in sorteddates:
         T = trees[k]
         subresult = {}
@@ -260,8 +261,8 @@ def clustering_performance(universes, weighted='TRUE'):
     price, log_ret = importdata("SP100_prices.csv")
     ret = price / price.shift(1)
     ret = ret.iloc[1:]
-    univdates = sorted(universes.ts(), t=lambda d: map(int, d.split('-')))
-    pricedates = sorted(pd.read_csv("SP100_prices.csv")["Date"], t=lambda d: map(int, d.split('-')))
+    univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.read_csv("SP100_prices.csv")["Date"], key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
     result = {'central': {}}
     result['central'][univdates[0]] = 1
