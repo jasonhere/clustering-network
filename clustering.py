@@ -118,27 +118,6 @@ def label_clustering_series(series, baseline_clustering=None, option='continuous
         return None
 
 
-def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
-    """compute the central and peripheral universes according to a given dict of {date: clustering}"""
-    result = {}
-    sorteddates = sorted(trees.keys(), key=lambda d: map(int, d.split('-')))
-    for k in sorteddates:
-        T = trees[k]
-        subresult = {}
-        C = clusterings[k]
-        peripheral = []
-        central = []
-        for c in C:
-            if len(list(T.subgraph(c).edges())) == 0:
-                # elements in clusters with no edges will be considered peripheral
-                peripheral.extend(c)
-            else:
-                peripheral.extend(portfolio(T.subgraph(c), c_measure, quantile, "lower"))
-                central.extend(portfolio(T.subgraph(c), c_measure, quantile, "upper"))
-        subresult["central"] = central
-        subresult["peripheral"] = peripheral
-        result[k] = subresult
-    return result
 
 
 def construct_clusters(trees, method='Newman'):
@@ -155,12 +134,6 @@ def construct_clusters(trees, method='Newman'):
     clusters = {}
     IGclusters = {}
     if method == 'Newman':
-        if type(trees[sorteddates[0]]) != ig.Graph:
-            usabletrees = {}
-            for t in sorteddates:
-                usabletrees[t] = NXtoIG(trees[t])
-        else:
-            usabletrees = trees
         for t in sorteddates:
             c = usabletrees[t].community_leading_eigenvector(weights="weight")
             clusters[t] = list(c)
@@ -169,12 +142,6 @@ def construct_clusters(trees, method='Newman'):
                 clusters[t][i] = [usabletrees[t].vs["name"][j] for j in c[i]]
         return clusters, IGclusters
     elif method == 'ClausetNewman':
-        if type(trees[sorteddates[0]]) != ig.Graph:
-            usabletrees = {}
-            for t in sorteddates:
-                usabletrees[t] = NXtoIG(trees[t])
-        else:
-            usabletrees = trees
         for t in sorteddates:
             c = usabletrees[t].community_fastgreedy(weights="weight").as_clustering()
             clusters[t] = list(c)

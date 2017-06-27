@@ -119,6 +119,29 @@ def performance(dic, pricedf, space=1, weights=False):
     return performance
 
 
+def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
+    """compute the central and peripheral universes according to a given dict of {date: clustering}"""
+    result = {}
+    sorteddates = sorted(trees.keys(), key=lambda d: map(int, d.split('-')))
+    for k in sorteddates:
+        T = trees[k]
+        subresult = {}
+        C = clusterings[k]
+        peripheral = []
+        central = []
+        for c in C:
+            if len(list(T.subgraph(c).edges())) == 0:
+                # elements in clusters with no edges will be considered peripheral
+                peripheral.extend(c)
+            else:
+                peripheral.extend(portfolio(T.subgraph(c), c_measure, quantile, "lower"))
+                central.extend(portfolio(T.subgraph(c), c_measure, quantile, "upper"))
+        subresult["central"] = central
+        subresult["peripheral"] = peripheral
+        result[k] = subresult
+    return result
+
+
 # pick one if there are several stocks with the same highest centrality
 def portfolio(MST, c_measure, quantile=0.25, option='upper'):
     """Return a list of the upper or lower 25%(default) of stocks sorted by centrality.
