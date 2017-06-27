@@ -1,9 +1,7 @@
 import igraph as ig
 import networkx as nx
 import numpy as np
-import pandas as pd
-import time
-from all_functions import importdata, MST, rolling_corr, weighted_degree_centrality
+from all_functions import importdata, MST
 from scipy.stats import hypergeom
 from sklearn.metrics import adjusted_rand_score
 
@@ -204,3 +202,13 @@ def find_cluster_diameter(labeling, trees, IGclusters, cluster_label):
         except:
             result[t] = np.nan
     return result
+
+
+def movingARI(clusters, nodenames):
+    """Compute the moving adjusted Rand index"""
+    sorteddates = sorted(clusters.keys(), key=lambda d: map(int, d.split('-')))
+    ARI = np.empty(len(sorteddates) - 1)
+    for i in range(1, len(sorteddates)):
+        ARI[i - 1] = adjusted_rand_score(createlabel(clusters[sorteddates[i]], nodenames)[1],
+                                         createlabel(clusters[sorteddates[i - 1]], nodenames)[1])
+    return ARI
