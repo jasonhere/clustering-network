@@ -20,7 +20,7 @@ def corr_matrix(df, window=250, enddate="2017-01-24", method="gower"):
     """To generate correlation matrix for a certain period, method = 'gower' or 'power'"""
     end = int(np.where(df.index == enddate)[0])
     start = end - window + 1
-    sub = df[start:end + 1]
+    sub = df[start:end + 1].dropna(axis=1, how='any')  # dropna in case it is too early for some tickers to exist
     # print(sub)
     corr_mat = sub.corr(min_periods=1)
     if method == "gower":
@@ -244,18 +244,6 @@ def cov_matrix(df, window=250, enddate="2017-02-28"):
 
 
 ## still need to deal with the situation when enddate is not in the index.
-
-# n not properly defined
-def min_variance_weights(cov):
-    S = opt.matrix(cov)
-    G = -opt.matrix(np.eye(n))  # negative n x n identity matrix
-    h = opt.matrix(0.0, (n, 1))
-    A = opt.matrix(1.0, (1, n))
-    b = opt.matrix(1.0)
-    weights = solvers.qp(S, q, G, h, A, b)["x"]
-    risk = np.sqrt(blas.dot(weights, S * weights))
-    return np.asarray(weights), risk
-
 
 # needs inspection
 def measure_performance(pricedf, stocklist, startdate, space=1, weights=None):

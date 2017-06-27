@@ -10,6 +10,7 @@ from sklearn.metrics import adjusted_rand_score
 from pandas_datareader import data
 import time
 from all_functions import importdata, MST, rolling_corr, weighted_degree_centrality
+import quandl
 
 
 def NXtoIG(nxgraph):
@@ -237,8 +238,7 @@ def cov_matrix(df, stocklist, window=250, enddate="2017-02-28"):
      differs from the one in 'all_functions.py' by the 'stocklist' argument"""
     end = int(np.where(df.index == enddate)[0])
     start = end - window + 1
-    sub = df[start:end + 1][stocklist]
-    # print(sub)
+    sub = df[start:end + 1][stocklist].dropna(axis=1, how='any')
     cov_mat = np.cov(sub.T)
     return cov_mat
 
@@ -254,17 +254,18 @@ def min_variance_weights(cov):
     h = opt.matrix(0.0, (n, 1))
     A = opt.matrix(1.0, (1, n))
     b = opt.matrix(1.0)
+    solvers.options['show_progress'] = False
     weights = solvers.qp(S, q, G, h, A, b)["x"]
     risk = np.sqrt(blas.dot(weights, S * weights))
     return np.asarray(weights), risk
 
 
-def clustering_performance(universes, weighted='TRUE'):
-    price, log_ret = importdata("SP100_prices.csv")
+def clustering_performance(filename, universes, weighted='TRUE', window=100):
+    price, log_ret = importdata(filename)
     ret = price / price.shift(1)
     ret = ret.iloc[1:]
     univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
-    pricedates = sorted(pd.read_csv("SP100_prices.csv")["Date"], key=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
     result = {'central': {}}
     result['central'][univdates[0]] = 1
@@ -272,16 +273,56 @@ def clustering_performance(universes, weighted='TRUE'):
     result['peripheral'][univdates[0]] = 1
     for t in univdates:
         for j in ['central', 'peripheral']:
-            cov = cov_matrix(ret, universes[t][j], 250, t)
-            if weighted == 'TRUE':
+            cov = cov_matrix(ret, universes[t][j], window, t)
+            r = ret[pricedates.index(t) - window:pricedates.index(t) + 1 + space].dropna(axis=1, how='any')[
+                universes[t][j]]
+            if len(np.atleast_1d(cov)) == 1:
+                weights = [1]
+            elif weighted == 'TRUE':
                 weights = np.transpose(min_variance_weights(cov)[0])[0]
             else:
                 weights = np.divide(np.ones(len(cov)), len(cov))
             for tt in pricedates[pricedates.index(t) + 1:
                             pricedates.index(t) + 1 + space]:
-                result[j][tt] = result[j][t] * np.dot(weights, np.divide(price[tt:tt][universes[t][j]].as_matrix()[0],
-                                                                         price[t:t][universes[t][j]].as_matrix()[0]))
+                result[j][tt] = result[j][t] * np.dot(weights, r[tt:tt].as_matrix()[0])
     return result
+
+
+def benchmark_performance(filename, universes, window=100):
+    price, log_ret = importdata(filename)
+    ret = price / price.shift(1)
+    ret = ret.iloc[1:]
+    univdates = sorted(universes['Newman']['degree'].keys(), key=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.read_csv("SP100_20170627.csv")["Date"], key=lambda d: map(int, d.split('-')))
+    space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
+    SP100Performance_weighted = {}
+    SP100Performance_weighted[univdates[0]] = 1
+    SP100Performance_unweighted = {}
+    SP100Performance_unweighted[univdates[0]] = 1
+    for t in univdates:
+        cov = cov_matrix(ret, price.keys(), window, t)
+        weights = np.transpose(min_variance_weights(cov)[0])[0]
+        r = ret[pricedates.index(t) - window:pricedates.index(t) + 1 + space].dropna(axis=1, how='any')
+        for tt in pricedates[pricedates.index(t) + 1:
+                        pricedates.index(t) + 1 + space]:
+            SP100Performance_weighted[tt] = SP100Performance_weighted[t] * np.dot(weights, r[tt:tt].as_matrix()[0])
+        weights = np.divide(np.ones(len(cov)), len(cov))
+        for tt in pricedates[pricedates.index(t) + 1:
+                        pricedates.index(t) + 1 + space]:
+            # SP100Performance_unweighted[tt] = SP100Performance_unweighted[t]*np.dot(weights,np.divide(price[tt:tt].as_matrix()[0],
+            # price[t:t].as_matrix()[0]))
+            SP100Performance_unweighted[tt] = SP100Performance_unweighted[t] * np.dot(weights, r[tt:tt].as_matrix()[0])
+    df_weighted = pd.DataFrame([[key, value] for key, value in SP100Performance_weighted.iteritems()],
+                               columns=["Date", "SP100"])
+    df_weighted = df_weighted.set_index(pd.DatetimeIndex(df_weighted['Date']))
+    df_weighted = df_weighted.drop(['Date'], axis=1)
+    df_weighted.sort_index(inplace=True)
+    df_unweighted = pd.DataFrame([[key, value] for key, value in SP100Performance_unweighted.iteritems()],
+                                 columns=["Date", "SP100"])
+    df_unweighted = df_unweighted.set_index(pd.DatetimeIndex(df_unweighted['Date']))
+    df_unweighted = df_unweighted.drop(['Date'], axis=1)
+    df_unweighted.sort_index(inplace=True)
+    return df_weighted, df_unweighted
 
 
 def download_daily_data(symbollist, filename):
@@ -293,6 +334,15 @@ def download_daily_data(symbollist, filename):
         except:
             pass
     store.close()
+
+
+def get_quandl_data(symbollist, startdate, enddate):
+    quandl.ApiConfig.api_key = "PmL3cEPezsZ_dAsyxrvX"
+    df = quandl.get("WIKI/" + symbollist[0] + ".11", start_date=startdate, end_date=enddate)
+    df.columns = [symbollist[0]]
+    for stock in symbollist[1:]:
+        df[stock] = quandl.get("WIKI/" + stock + ".11", start_date=startdate, end_date=enddate)
+    return df
 
 
 # store data in dictionaries with more attributes
@@ -363,5 +413,3 @@ def find_cluster_diameter(labeling, trees, IGclusters, cluster_label):
         except:
             result[t] = np.nan
     return result
-
-
