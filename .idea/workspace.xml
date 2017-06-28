@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portfolio_and_performance.py" afterPath="$PROJECT_DIR$/portfolio_and_performance.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -484,7 +482,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498670765729</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixed some bugs, changed the way nan is handled.">
+      <created>1498680601161</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1498680601162</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
