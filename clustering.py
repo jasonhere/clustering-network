@@ -1,7 +1,7 @@
 import igraph as ig
 import networkx as nx
 import numpy as np
-from all_functions import importdata, MST
+from trees import importdata, MST
 from scipy.stats import hypergeom
 from sklearn.metrics import adjusted_rand_score
 
@@ -64,7 +64,7 @@ def label_clusters(clustering1, clustering2, p_value=0.01):
 def total_clustering(enddate, startdate, filename="SP100_20170612.csv", method='Newman'):
     """helper to create a clustering with the whole period starting at startdate, ending at enddate, as the window.
     method can be 'Newman' or 'ClausetNewman' """
-    df = importdata(filename)[1]
+    df = importdata(filename)
     end = int(np.where(df.index == enddate)[0])
     start = int(np.where(df.index == startdate)[0])
     total_tree = MST(filename=filename, window=end - start + 1,

@@ -7,13 +7,15 @@ import math
 def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower"):
     """To generate correlation matrix for a certain period, method = 'gower' or 'power'"""
     end = int(np.where(df.index == enddate)[0])
-    start = end - window + 1
+    start = end - window
     sub = df[start:end + 1].dropna(thresh=thresh, axis=1)  # drop whole column when there are less than or equal to
     # thresh number of non-nan entries in the window
     # print(sub)
     sub = sub.ffill()
     sub = sub.bfill()
-    corr_mat = sub.corr(min_periods=1)
+    subret = np.log(sub) - np.log(sub.shift(1))
+    subret = subret[1:]
+    corr_mat = subret.corr(min_periods=1)
     if method == "gower":
         corr_mat = (2 - 2 * corr_mat[corr_mat.notnull()]) ** 0.5  # gower
     elif method == "power":
@@ -67,17 +69,17 @@ def importdata(filename):
     df = df.drop(['Date'], axis=1)
     df.sort_index(inplace=True)
     # forward fill for NA
-    df.fillna(method='ffill', axis=0, inplace=True)
+    # df.fillna(method='ffill', axis=0, inplace=True)
     # Log return
-    log_ret = np.log(df) - np.log(df.shift(1))
-    return df, log_ret
+    # log_ret = np.log(df) - np.log(df.shift(1))
+    return df
 
 
 def MST(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30', space=1):
     """Returns a dictionary of Minimum Spanning Tree for each end date,
     space means the interval between two sample updates"""
-    log_ret = importdata(filename)[1]
-    dic = rolling_corr(log_ret, thresh, window, enddate, startdate, space)
+    price = importdata(filename)
+    dic = rolling_corr(price, thresh, window, enddate, startdate, space)
     trees = {}
     for key in sorted(dic.keys()):
         corr_matrix = dic[key]

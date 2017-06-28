@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from cvxopt import blas, solvers
 import cvxopt as opt
-from all_functions import importdata, weighted_degree_centrality
+from trees import importdata
 
 
 def weighted_degree_centrality(T):
@@ -200,13 +200,15 @@ def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
     return result
 
 
-def cov_matrix(df, stocklist, window=250, enddate="2017-02-28"):
+def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28"):
     """To generate correlation matrix for a certain period and a list of stock (stocklist), method = 'gower' or 'power',
      differs from the one in 'all_functions.py' by the 'stocklist' argument"""
-    end = int(np.where(df.index == enddate)[0])
-    start = end - window + 1
-    sub = df[start:end + 1][stocklist].dropna(axis=1, how='any')
-    cov_mat = np.cov(sub.T)
+    end = int(np.where(price.index == enddate)[0])
+    start = end - window
+    sub = price[start:end + 1][stocklist].dropna(thresh=thresh, axis=1)
+    subret = sub / sub.shift(1)
+    subret = subret.iloc[1:]
+    cov_mat = np.cov(subret.T)
     return cov_mat
 
 
@@ -224,8 +226,8 @@ def min_variance_weights(cov):
     return np.asarray(weights), risk
 
 
-def clustering_performance(filename, universes, weighted='TRUE', window=100):
-    price, log_ret = importdata(filename)
+def clustering_performance(filename, thresh, universes, weighted='TRUE', window=100):
+    price = importdata(filename).ffill()
     ret = price / price.shift(1)
     ret = ret.iloc[1:]
     univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
@@ -237,7 +239,7 @@ def clustering_performance(filename, universes, weighted='TRUE', window=100):
     result['peripheral'][univdates[0]] = 1
     for t in univdates:
         for j in ['central', 'peripheral']:
-            cov = cov_matrix(ret, universes[t][j], window, t)
+            cov = cov_matrix(price, thresh, universes[t][j], window, t)
             r = ret[pricedates.index(t) - window:pricedates.index(t) + 1 + space].dropna(axis=1, how='any')[
                 universes[t][j]]
             if len(np.atleast_1d(cov)) == 1:
@@ -252,17 +254,17 @@ def clustering_performance(filename, universes, weighted='TRUE', window=100):
     return result
 
 
-def benchmark_performance(filename, universes, window=100):
-    price, log_ret = importdata(filename)
+def benchmark_performance(filename, thresh, universes, window=100):
+    price = importdata(filename).ffill()
     ret = price / price.shift(1)
     ret = ret.iloc[1:]
     univdates = sorted(universes['Newman']['degree'].keys(), key=lambda d: map(int, d.split('-')))
-    pricedates = sorted(pd.read_csv("SP100_20170627.csv")["Date"], key=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
     SP100Performance_weighted = {univdates[0]: 1}
     SP100Performance_unweighted = {univdates[0]: 1}
     for t in univdates:
-        cov = cov_matrix(ret, price.keys(), window, t)
+        cov = cov_matrix(price, thresh, price.keys(), window, t)
         weights = np.transpose(min_variance_weights(cov)[0])[0]
         r = ret[pricedates.index(t) - window:pricedates.index(t) + 1 + space].dropna(axis=1, how='any')
         for tt in pricedates[pricedates.index(t) + 1:
