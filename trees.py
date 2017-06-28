@@ -4,12 +4,15 @@ import pandas as pd
 import math
 
 
-def corr_matrix(df, window=250, enddate="2017-01-24", method="gower"):
+def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower"):
     """To generate correlation matrix for a certain period, method = 'gower' or 'power'"""
     end = int(np.where(df.index == enddate)[0])
     start = end - window + 1
-    sub = df[start:end + 1].dropna(axis=1, how='any')  # dropna in case it is too early for some tickers to exist
+    sub = df[start:end + 1].dropna(thresh=thresh, axis=1)  # drop whole column when there are less than or equal to
+    # thresh number of non-nan entries in the window
     # print(sub)
+    sub = sub.ffill()
+    sub = sub.bfill()
     corr_mat = sub.corr(min_periods=1)
     if method == "gower":
         corr_mat = (2 - 2 * corr_mat[corr_mat.notnull()]) ** 0.5  # gower
@@ -19,7 +22,7 @@ def corr_matrix(df, window=250, enddate="2017-01-24", method="gower"):
     return corr_mat
 
 
-def rolling_corr(df, window=250, enddate="2017-01-24", startdate='2005-01-03', space=10):
+def rolling_corr(df, thresh, window=250, enddate="2017-01-24", startdate='2005-01-03', space=10):
     """Return a dictionary of correlation matrices.
     The key is the enddate of the window, the value is corresponding correlation matrix"""
     end = int(np.where(df.index == enddate)[0])
@@ -30,7 +33,7 @@ def rolling_corr(df, window=250, enddate="2017-01-24", startdate='2005-01-03', s
     result = {}
     for d in dates:
         d = pd.to_datetime(d).strftime("%Y-%m-%d")
-        result[str(d)] = corr_matrix(df, window, enddate=d)
+        result[str(d)] = corr_matrix(df, thresh, window, enddate=d)
     return result
 
 
@@ -70,11 +73,11 @@ def importdata(filename):
     return df, log_ret
 
 
-def MST(filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30', space=1):
+def MST(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30', space=1):
     """Returns a dictionary of Minimum Spanning Tree for each end date,
     space means the interval between two sample updates"""
     log_ret = importdata(filename)[1]
-    dic = rolling_corr(log_ret, window, enddate, startdate, space)
+    dic = rolling_corr(log_ret, thresh, window, enddate, startdate, space)
     trees = {}
     for key in sorted(dic.keys()):
         corr_matrix = dic[key]
@@ -85,11 +88,12 @@ def MST(filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate
 
 
 # unfinished: need DBHT
-def construct_trees(filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30', space=1,
+def construct_trees(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30',
+                    space=1,
                     tree_type='MST'):
     """construct a dictionary of trees {date: tree}. Based on tree_type, can return MST or DBHT"""
     if tree_type == 'MST':
-        return MST(filename=filename, window=window, enddate=enddate, startdate=startdate, space=space)
+        return MST(thresh=thresh, filename=filename, window=window, enddate=enddate, startdate=startdate, space=space)
     elif tree_type == 'DBHT':
         pass
         # ......
