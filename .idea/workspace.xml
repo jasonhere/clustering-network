@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portfolio_and_performance.py" afterPath="$PROJECT_DIR$/portfolio_and_performance.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1314">
-              <caret line="271" column="87" lean-forward="false" selection-start-line="271" selection-start-column="87" selection-end-line="271" selection-end-column="87" />
+            <state relative-caret-position="-64">
+              <caret line="253" column="28" lean-forward="false" selection-start-line="253" selection-start-column="28" selection-end-line="253" selection-end-column="28" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
                 <element signature="e#2949#4640#0" expanded="false" />
@@ -30,21 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="runningscript.ipynb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="runningscript.ipynb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clustering_functions.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clustering_functions.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="163" column="45" lean-forward="true" selection-start-line="163" selection-start-column="45" selection-end-line="163" selection-end-column="45" />
-              <folding />
+              <selected id="5" />
             </state>
           </provider>
         </entry>
@@ -52,8 +44,8 @@
       <file leaf-file-name="trees.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trees.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="10" column="57" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="57" />
+            <state relative-caret-position="40">
+              <caret line="69" column="31" lean-forward="true" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -73,8 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>key</find>
-      <find>t</find>
       <find>t=</find>
       <find>t =</find>
       <find>MST</find>
@@ -99,10 +89,12 @@
       <find>benchmark</find>
       <find>cov</find>
       <find>importdata</find>
-      <find>meta</find>
       <find>cov_matrix</find>
       <find>dropna</find>
       <find>min_variance_weights</find>
+      <find>meta</find>
+      <find>construct_t</find>
+      <find>csv</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -130,8 +122,8 @@
         <option value="$PROJECT_DIR$/downloaddata.py" />
         <option value="$PROJECT_DIR$/trees.py" />
         <option value="$PROJECT_DIR$/clustering.py" />
-        <option value="$PROJECT_DIR$/runningscript.ipynb" />
         <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
+        <option value="$PROJECT_DIR$/runningscript.ipynb" />
       </list>
     </option>
   </component>
@@ -489,7 +481,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498680601162</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fixed some bugs on performance functions.">
+      <created>1498680623518</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1498680623518</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -558,6 +557,16 @@
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -592,7 +601,8 @@
     <MESSAGE value="Re-orginized functions into separate files." />
     <MESSAGE value="re-ordered performance plot" />
     <MESSAGE value="Fixed some bugs, changed the way nan is handled." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some bugs, changed the way nan is handled." />
+    <MESSAGE value="Fixed some bugs on performance functions." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some bugs on performance functions." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -926,24 +936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trees.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="10" column="57" lean-forward="false" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="57" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/clustering_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="163" column="45" lean-forward="true" selection-start-line="163" selection-start-column="45" selection-end-line="163" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/downloaddata.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -952,21 +944,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="12" />
+    <entry file="file://$PROJECT_DIR$/clustering_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="163" column="45" lean-forward="true" selection-start-line="163" selection-start-column="45" selection-end-line="163" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trees.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="69" column="31" lean-forward="true" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1314">
-          <caret line="271" column="87" lean-forward="false" selection-start-line="271" selection-start-column="87" selection-end-line="271" selection-end-column="87" />
+        <state relative-caret-position="-64">
+          <caret line="253" column="28" lean-forward="false" selection-start-line="253" selection-start-column="28" selection-end-line="253" selection-end-column="28" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
             <element signature="e#2949#4640#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="5" />
         </state>
       </provider>
     </entry>

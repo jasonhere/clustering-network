@@ -254,7 +254,8 @@ def clustering_performance(filename, thresh, universes, weighted='TRUE', window=
                 weights = np.divide(np.ones(len(cov)), len(cov))
             for tt in pricedates[pricedates.index(t) + 1:
                             pricedates.index(t) + 1 + space]:
-                result[j][tt] = result[j][t] * np.dot(weights, r[tt:tt].as_matrix()[0])
+                result[j][tt] = result[j][pricedates[pricedates.index(tt) - 1]] * np.dot(weights,
+                                                                                         r[tt:tt].as_matrix()[0])
     return result
 
 
@@ -279,13 +280,17 @@ def benchmark_performance(filename, thresh, universes, window=100):
         r = r.iloc[1:]
         for tt in pricedates[pricedates.index(t) + 1:
                         pricedates.index(t) + 1 + space]:
-            SP100Performance_weighted[tt] = SP100Performance_weighted[t] * np.dot(weights, r[tt:tt].as_matrix()[0])
+            SP100Performance_weighted[tt] = SP100Performance_weighted[pricedates[pricedates.index(tt) - 1]] * np.dot(
+                weights, r[tt:tt].as_matrix()[0])
         weights = np.divide(np.ones(len(cov)), len(cov))
         for tt in pricedates[pricedates.index(t) + 1:
                         pricedates.index(t) + 1 + space]:
             # SP100Performance_unweighted[tt] = SP100Performance_unweighted[t]*np.dot(weights,np.divide(price[tt:tt].as_matrix()[0],
             # price[t:t].as_matrix()[0]))
-            SP100Performance_unweighted[tt] = SP100Performance_unweighted[t] * np.dot(weights, r[tt:tt].as_matrix()[0])
+            SP100Performance_unweighted[tt] = SP100Performance_unweighted[
+                                                  pricedates[pricedates.index(tt) - 1]] * np.dot(weights,
+                                                                                                 r[tt:tt].as_matrix()[
+                                                                                                     0])
     df_weighted = pd.DataFrame([[key, value] for key, value in SP100Performance_weighted.iteritems()],
                                columns=["Date", "SP100"])
     df_weighted = df_weighted.set_index(pd.DatetimeIndex(df_weighted['Date']))
@@ -297,3 +302,11 @@ def benchmark_performance(filename, thresh, universes, window=100):
     df_unweighted = df_unweighted.drop(['Date'], axis=1)
     df_unweighted.sort_index(inplace=True)
     return df_weighted, df_unweighted
+
+
+def sharpe_ratio(price, riskless_rate):
+    ret = price / price.shift(1)
+    ret = ret.iloc[1:] - 1
+    mean_ret = np.mean(ret)
+    std = np.std(ret)
+    return (mean_ret - riskless_rate) / std
