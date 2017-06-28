@@ -309,4 +309,4 @@ def sharpe_ratio(price, riskless_rate):
     ret = ret.iloc[1:] - 1
     mean_ret = np.mean(ret)
     std = np.std(ret)
-    return (mean_ret - riskless_rate) / std
+    return (mean_ret * 252 - riskless_rate) / (std * np.sqrt(252))

@@ -22,8 +22,8 @@
       <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-64">
-              <caret line="253" column="28" lean-forward="false" selection-start-line="253" selection-start-column="28" selection-end-line="253" selection-end-column="28" />
+            <state relative-caret-position="-67">
+              <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
                 <element signature="e#2949#4640#0" expanded="false" />
@@ -36,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="5" />
+              <selected id="12" />
             </state>
           </provider>
         </entry>
@@ -122,8 +122,8 @@
         <option value="$PROJECT_DIR$/downloaddata.py" />
         <option value="$PROJECT_DIR$/trees.py" />
         <option value="$PROJECT_DIR$/clustering.py" />
-        <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
         <option value="$PROJECT_DIR$/runningscript.ipynb" />
+        <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
       </list>
     </option>
   </component>
@@ -488,7 +488,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498680623518</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fixed bugs in performance functions. Way to calculate performance was incorrect.">
+      <created>1498685871680</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1498685871680</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView">
@@ -602,7 +609,8 @@
     <MESSAGE value="re-ordered performance plot" />
     <MESSAGE value="Fixed some bugs, changed the way nan is handled." />
     <MESSAGE value="Fixed some bugs on performance functions." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed some bugs on performance functions." />
+    <MESSAGE value="Fixed bugs in performance functions. Way to calculate performance was incorrect." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs in performance functions. Way to calculate performance was incorrect." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -964,8 +972,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-64">
-          <caret line="253" column="28" lean-forward="false" selection-start-line="253" selection-start-column="28" selection-end-line="253" selection-end-column="28" />
+        <state relative-caret-position="-67">
+          <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
             <element signature="e#2949#4640#0" expanded="false" />
@@ -976,7 +984,7 @@
     <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="5" />
+          <selected id="12" />
         </state>
       </provider>
     </entry>
