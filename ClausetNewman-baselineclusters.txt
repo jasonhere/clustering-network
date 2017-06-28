@@ -1,0 +1,12 @@
+Cluster 1 (industrial & home builders): GE T GM JNJ XLI EMR MMM PM UPS MDLZ IBM F CMCSA XHB BAX CAT FDX ORCL VZ HON UTX MCD 
+Cluster 2 (financial): BK GS KIE WFC KBE C MS XLF KRE MET USB BAC AIG JPM 
+Cluster 3 (utilities & consumer staples): EXC SPG XLU XLP PG MO PEP COST WMT KO SO WBA CVS CL 
+Cluster 4 (energy & material): APA XLE XLB OXY APC MON COP DVN DOW CVX DD HAL XOM SLB 
+Cluster 5 (software): AXP AMZN XSW KCE MA ABBV XHE V UNH EBAY XHS ABT 
+Cluster 6 (biotech & pharmaceuticals): XBI PFE XPH AMGN MRK XLV LLY BMY MDT GILD BIIB 
+Cluster 7 (technology): AAPL GOOG XLK QCOM ACN FB MSFT HPQ MTK CSCO 
+Cluster 8 (consumer discretionary & retail): FOXA XLY HD XRT SBUX LOW TWX DIS TGT NKE 
+Cluster 9 (telecom & semiconductor): INTC COF XTL ALL TXN XSD 
+Cluster 10 (aerospace & defense): BA XAR GD RTN LMT 
+Cluster 11 (metals & mining, oil & gas): NOV FCX XME XES XOP 
+Cluster 12 (transportation): NSC UNP XTN 
