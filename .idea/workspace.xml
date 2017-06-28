@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Central-NewmanBetweenness-20170627.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500list.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500list.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portfolio_and_performance.py" afterPath="$PROJECT_DIR$/portfolio_and_performance.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +24,23 @@
       <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-67">
-              <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
+            <state relative-caret-position="565">
+              <caret line="312" column="0" lean-forward="true" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#185#594#0" expanded="false" />
+                <element signature="e#632#869#0" expanded="false" />
+                <element signature="e#927#1591#0" expanded="false" />
+                <element signature="e#1625#2427#0" expanded="false" />
+                <element signature="e#2513#2887#0" expanded="false" />
                 <element signature="e#2949#4640#0" expanded="false" />
+                <element signature="e#4718#5572#0" expanded="false" />
+                <element signature="e#5713#6883#0" expanded="false" />
+                <element signature="e#6961#7815#0" expanded="false" />
+                <element signature="e#7898#8396#0" expanded="false" />
+                <element signature="e#8434#8840#0" expanded="false" />
+                <element signature="e#8933#10401#0" expanded="false" />
+                <element signature="e#10476#13234#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -36,7 +50,7 @@
         <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="12" />
+              <selected id="0" />
             </state>
           </provider>
         </entry>
@@ -122,8 +136,8 @@
         <option value="$PROJECT_DIR$/downloaddata.py" />
         <option value="$PROJECT_DIR$/trees.py" />
         <option value="$PROJECT_DIR$/clustering.py" />
-        <option value="$PROJECT_DIR$/runningscript.ipynb" />
         <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
+        <option value="$PROJECT_DIR$/runningscript.ipynb" />
       </list>
     </option>
   </component>
@@ -495,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498685871680</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixed sharpe ratio function">
+      <created>1498686556995</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1498686556995</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -511,7 +532,7 @@
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26655897" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26655897" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503125" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26027396" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
@@ -610,7 +631,8 @@
     <MESSAGE value="Fixed some bugs, changed the way nan is handled." />
     <MESSAGE value="Fixed some bugs on performance functions." />
     <MESSAGE value="Fixed bugs in performance functions. Way to calculate performance was incorrect." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs in performance functions. Way to calculate performance was incorrect." />
+    <MESSAGE value="Fixed sharpe ratio function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed sharpe ratio function" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -972,11 +994,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-67">
-          <caret line="265" column="29" lean-forward="true" selection-start-line="265" selection-start-column="29" selection-end-line="265" selection-end-column="29" />
+        <state relative-caret-position="565">
+          <caret line="312" column="0" lean-forward="true" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#185#594#0" expanded="false" />
+            <element signature="e#632#869#0" expanded="false" />
+            <element signature="e#927#1591#0" expanded="false" />
+            <element signature="e#1625#2427#0" expanded="false" />
+            <element signature="e#2513#2887#0" expanded="false" />
             <element signature="e#2949#4640#0" expanded="false" />
+            <element signature="e#4718#5572#0" expanded="false" />
+            <element signature="e#5713#6883#0" expanded="false" />
+            <element signature="e#6961#7815#0" expanded="false" />
+            <element signature="e#7898#8396#0" expanded="false" />
+            <element signature="e#8434#8840#0" expanded="false" />
+            <element signature="e#8933#10401#0" expanded="false" />
+            <element signature="e#10476#13234#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -984,7 +1018,7 @@
     <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="12" />
+          <selected id="1" />
         </state>
       </provider>
     </entry>
