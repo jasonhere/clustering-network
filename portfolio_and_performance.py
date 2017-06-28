@@ -206,6 +206,8 @@ def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28"):
     end = int(np.where(price.index == enddate)[0])
     start = end - window
     sub = price[start:end + 1][stocklist].dropna(thresh=thresh, axis=1)
+    sub = sub.ffill()
+    sub = sub.bfill()
     subret = sub / sub.shift(1)
     subret = subret.iloc[1:]
     cov_mat = np.cov(subret.T)
@@ -227,9 +229,7 @@ def min_variance_weights(cov):
 
 
 def clustering_performance(filename, thresh, universes, weighted='TRUE', window=100):
-    price = importdata(filename).ffill()
-    ret = price / price.shift(1)
-    ret = ret.iloc[1:]
+    price = importdata(filename)
     univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
     pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
@@ -240,8 +240,12 @@ def clustering_performance(filename, thresh, universes, weighted='TRUE', window=
     for t in univdates:
         for j in ['central', 'peripheral']:
             cov = cov_matrix(price, thresh, universes[t][j], window, t)
-            r = ret[pricedates.index(t) - window:pricedates.index(t) + 1 + space].dropna(axis=1, how='any')[
+            pricewindow = price[pricedates.index(t) - 1:pricedates.index(t) + 1 + space][
                 universes[t][j]]
+            pricewindow = pricewindow.ffill()
+            pricewindow = pricewindow.bfill()
+            r = pricewindow / pricewindow.shift(1)
+            r = r.iloc[1:]
             if len(np.atleast_1d(cov)) == 1:
                 weights = [1]
             elif weighted == 'TRUE':
@@ -255,9 +259,7 @@ def clustering_performance(filename, thresh, universes, weighted='TRUE', window=
 
 
 def benchmark_performance(filename, thresh, universes, window=100):
-    price = importdata(filename).ffill()
-    ret = price / price.shift(1)
-    ret = ret.iloc[1:]
+    price = importdata(filename)
     univdates = sorted(universes['Newman']['degree'].keys(), key=lambda d: map(int, d.split('-')))
     pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
@@ -265,8 +267,16 @@ def benchmark_performance(filename, thresh, universes, window=100):
     SP100Performance_unweighted = {univdates[0]: 1}
     for t in univdates:
         cov = cov_matrix(price, thresh, price.keys(), window, t)
+        end = int(np.where(price.index == t)[0])
+        start = end - window
+        univ = price[start:end + 1][price.keys()].dropna(thresh=thresh, axis=1).columns
         weights = np.transpose(min_variance_weights(cov)[0])[0]
-        r = ret[pricedates.index(t) - window:pricedates.index(t) + 1 + space].dropna(axis=1, how='any')
+        pricewindow = price[pricedates.index(t) - window - 1:pricedates.index(t) + 1 + space]
+        pricewindow = pricewindow.ffill()
+        pricewindow = pricewindow.bfill()
+        pricewindow = pricewindow[univ]
+        r = pricewindow / pricewindow.shift(1)
+        r = r.iloc[1:]
         for tt in pricedates[pricedates.index(t) + 1:
                         pricedates.index(t) + 1 + space]:
             SP100Performance_weighted[tt] = SP100Performance_weighted[t] * np.dot(weights, r[tt:tt].as_matrix()[0])

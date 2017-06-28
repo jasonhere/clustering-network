@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP100_full.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Central-NewmanBetweenness-20170626.txt" afterPath="$PROJECT_DIR$/Central-NewmanBetweenness-20170626.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/clustering.py" afterPath="$PROJECT_DIR$/clustering.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portfolio_and_performance.py" afterPath="$PROJECT_DIR$/portfolio_and_performance.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trees.py" afterPath="$PROJECT_DIR$/trees.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,25 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="clustering.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/clustering.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-              <folding>
-                <element signature="e#5277#6583#0" expanded="false" />
-                <element signature="e#6661#7367#0" expanded="false" />
-                <element signature="e#7410#7823#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="261" column="44" lean-forward="false" selection-start-line="261" selection-start-column="44" selection-end-line="261" selection-end-column="44" />
+            <state relative-caret-position="1314">
+              <caret line="271" column="87" lean-forward="false" selection-start-line="271" selection-start-column="87" selection-end-line="271" selection-end-column="87" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
                 <element signature="e#2949#4640#0" expanded="false" />
@@ -54,7 +36,17 @@
         <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="10" />
+              <selected id="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="clustering_functions.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/clustering_functions.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="463">
+              <caret line="163" column="45" lean-forward="true" selection-start-line="163" selection-start-column="45" selection-end-line="163" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,7 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>.ts()</find>
       <find>key</find>
       <find>t</find>
       <find>t=</find>
@@ -101,7 +92,6 @@
       <find>custering</find>
       <find>ARI</find>
       <find>min_variance_weight</find>
-      <find>dropna</find>
       <find>rolling_corr</find>
       <find>import</find>
       <find>universe</find>
@@ -110,9 +100,11 @@
       <find>enchmark</find>
       <find>benchmark</find>
       <find>cov</find>
-      <find>min_variance_weights</find>
       <find>importdata</find>
+      <find>meta</find>
       <find>cov_matrix</find>
+      <find>dropna</find>
+      <find>min_variance_weights</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -140,8 +132,8 @@
         <option value="$PROJECT_DIR$/downloaddata.py" />
         <option value="$PROJECT_DIR$/trees.py" />
         <option value="$PROJECT_DIR$/clustering.py" />
-        <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
         <option value="$PROJECT_DIR$/runningscript.ipynb" />
+        <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
       </list>
     </option>
   </component>
@@ -200,6 +192,116 @@
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Clustering" />
     </key>
+  </component>
+  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
+    <UpdatedFiles>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Updated from server" />
+        <option name="myStatusName" value="Changed on server" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="CHANGED_ON_SERVER" />
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated" />
+          <option name="myStatusName" value="Changed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/downloaddata.py</PATH>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Created" />
+          <option name="myStatusName" value="Created" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CREATED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Deleted" />
+          <option name="myStatusName" value="Deleted" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="true" />
+          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Restored" />
+          <option name="myStatusName" value="Will be restored" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="RESTORED" />
+        </FILE-GROUP>
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Modified" />
+        <option name="myStatusName" value="Modified" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MODIFIED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Skipped" />
+        <option name="myStatusName" value="Skipped" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SKIPPED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with conflicts" />
+        <option name="myStatusName" value="Will be merged with conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_CONFLICTS" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with tree conflicts" />
+        <option name="myStatusName" value="Merged with tree conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged with property conflicts" />
+        <option name="myStatusName" value="Will be merged with property conflicts" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Merged" />
+        <option name="myStatusName" value="Will be merged" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="MERGED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Not in repository" />
+        <option name="myStatusName" value="Not in repository" />
+        <option name="mySupportsDeletion" value="true" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="UNKNOWN" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally added" />
+        <option name="myStatusName" value="Locally added" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_ADDED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Locally removed" />
+        <option name="myStatusName" value="Locally removed" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="LOCALLY_REMOVED" />
+      </FILE-GROUP>
+      <FILE-GROUP>
+        <option name="myUpdateName" value="Switched" />
+        <option name="myStatusName" value="Switched" />
+        <option name="mySupportsDeletion" value="false" />
+        <option name="myCanBeAbsent" value="false" />
+        <option name="myId" value="SWITCHED" />
+      </FILE-GROUP>
+    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -375,7 +477,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498598559677</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fixed some bugs, changed the way nan is handled.">
+      <created>1498670765729</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1498670765729</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -477,7 +586,8 @@
     <MESSAGE value="Updated tree functions to cope with stocks that do not exist in earlier times. Re-organized running script." />
     <MESSAGE value="Re-orginized functions into separate files." />
     <MESSAGE value="re-ordered performance plot" />
-    <option name="LAST_COMMIT_MESSAGE" value="re-ordered performance plot" />
+    <MESSAGE value="Fixed some bugs, changed the way nan is handled." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some bugs, changed the way nan is handled." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -738,7 +848,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/runningscript.ipynb" />
     <entry file="file://$PROJECT_DIR$/portfolio.py" />
-    <entry file="file://$PROJECT_DIR$/clustering_functions.py" />
     <entry file="file://$PROJECT_DIR$/20170330Centrality/functions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -761,14 +870,6 @@
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
           <selected id="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/downloaddata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="95" lean-forward="false" selection-start-line="8" selection-start-column="95" selection-end-line="8" selection-end-column="95" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -808,10 +909,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="10" />
+    <entry file="file://$PROJECT_DIR$/clustering.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+          <folding>
+            <element signature="e#5277#6583#0" expanded="false" />
+            <element signature="e#6661#7367#0" expanded="false" />
+            <element signature="e#7410#7823#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -825,25 +931,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
+    <entry file="file://$PROJECT_DIR$/clustering_functions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="261" column="44" lean-forward="false" selection-start-line="261" selection-start-column="44" selection-end-line="261" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#2949#4640#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="463">
+          <caret line="163" column="45" lean-forward="true" selection-start-line="163" selection-start-column="45" selection-end-line="163" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/clustering.py">
+    <entry file="file://$PROJECT_DIR$/downloaddata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="33" lean-forward="true" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
+        <state relative-caret-position="120">
+          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1314">
+          <caret line="271" column="87" lean-forward="false" selection-start-line="271" selection-start-column="87" selection-end-line="271" selection-end-column="87" />
           <folding>
-            <element signature="e#5277#6583#0" expanded="false" />
-            <element signature="e#6661#7367#0" expanded="false" />
-            <element signature="e#7410#7823#0" expanded="false" />
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#2949#4640#0" expanded="false" />
           </folding>
         </state>
       </provider>
