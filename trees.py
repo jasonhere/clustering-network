@@ -42,7 +42,7 @@ def rolling_corr(df, thresh, window=250, enddate="2017-01-24", startdate='2005-0
 def constructgraph(corr_matrix):
     """Convert a correlation matrix to a graph"""
     G = nx.from_numpy_matrix(corr_matrix.values)
-    mapping = dict(zip(list(range(127)), list(corr_matrix.index)))
+    mapping = dict(zip(list(range(len(corr_matrix.index))), list(corr_matrix.index)))
     G = nx.relabel_nodes(G, mapping, copy=False)
     # delete NAN weights
     for (u, v, d) in G.edges(data=True):
