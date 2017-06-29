@@ -200,6 +200,22 @@ def clustering_universe(trees, clusterings, c_measure, quantile=0.25):
     return result
 
 
+def no_cluster_universe(trees, c_measure, quantile=0.25):
+    result = {}
+    sorteddates = sorted(trees.keys(), key=lambda d: map(int, d.split('-')))
+    for k in sorteddates:
+        T = trees[k]
+        subresult = {}
+        peripheral = []
+        central = []
+        peripheral.extend(portfolio(T, c_measure, quantile, "lower"))
+        central.extend(portfolio(T, c_measure, quantile, "upper"))
+        subresult["central"] = central
+        subresult["peripheral"] = peripheral
+        result[k] = subresult
+    return result
+
+
 def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28"):
     """To generate correlation matrix for a certain period and a list of stock (stocklist), method = 'gower' or 'power',
      differs from the one in 'all_functions.py' by the 'stocklist' argument"""
