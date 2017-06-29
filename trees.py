@@ -2,9 +2,10 @@ import networkx as nx
 import numpy as np
 import pandas as pd
 import math
+from sklearn.covariance import ledoit_wolf
 
 
-def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower"):
+def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower", shrinkage="None"):
     """To generate correlation matrix for a certain period, method = 'gower' or 'power'"""
     end = int(np.where(df.index == enddate)[0])
     start = end - window
@@ -15,7 +16,17 @@ def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower"):
     sub = sub.bfill()
     subret = np.log(sub) - np.log(sub.shift(1))
     subret = subret[1:]
-    corr_mat = subret.corr(min_periods=1)
+    if shrinkage == "None":
+        corr_mat = subret.corr(min_periods=1)
+    elif shrinkage == "LedoitWolf":
+        cov = ledoit_wolf(subret, assume_centered=True)[0]
+        std = np.sqrt(np.diagonal(cov))
+        corr_mat = (cov / std[:, None]).T / std[:, None]
+        np.fill_diagonal(corr_mat, 1.0)
+        corr_mat = pd.DataFrame(data=corr_mat, index=subret.columns, columns=subret.columns)
+    else:
+        print "'shrinkage' can only be 'None' or 'LedoitWolf'"
+        return None
     if method == "gower":
         corr_mat = (2 - 2 * corr_mat[corr_mat.notnull()]) ** 0.5  # gower
     elif method == "power":
@@ -24,7 +35,7 @@ def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower"):
     return corr_mat
 
 
-def rolling_corr(df, thresh, window=250, enddate="2017-01-24", startdate='2005-01-03', space=10):
+def rolling_corr(df, thresh, window=250, enddate="2017-01-24", startdate='2005-01-03', space=10, shrinkage="None"):
     """Return a dictionary of correlation matrices.
     The key is the enddate of the window, the value is corresponding correlation matrix"""
     end = int(np.where(df.index == enddate)[0])
@@ -35,7 +46,7 @@ def rolling_corr(df, thresh, window=250, enddate="2017-01-24", startdate='2005-0
     result = {}
     for d in dates:
         d = pd.to_datetime(d).strftime("%Y-%m-%d")
-        result[str(d)] = corr_matrix(df, thresh, window, enddate=d)
+        result[str(d)] = corr_matrix(df, thresh, window, enddate=d, shrinkage=shrinkage)
     return result
 
 
@@ -75,11 +86,12 @@ def importdata(filename):
     return df
 
 
-def MST(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30', space=1):
+def MST(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30', space=1,
+        shrinkage="None"):
     """Returns a dictionary of Minimum Spanning Tree for each end date,
     space means the interval between two sample updates"""
     price = importdata(filename)
-    dic = rolling_corr(price, thresh, window, enddate, startdate, space)
+    dic = rolling_corr(price, thresh, window, enddate, startdate, space, shrinkage=shrinkage)
     trees = {}
     for key in sorted(dic.keys()):
         corr_matrix = dic[key]
@@ -92,10 +104,11 @@ def MST(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", s
 # unfinished: need DBHT
 def construct_trees(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", startdate='2015-12-30',
                     space=1,
-                    tree_type='MST'):
+                    tree_type='MST', shrinkage="None"):
     """construct a dictionary of trees {date: tree}. Based on tree_type, can return MST or DBHT"""
     if tree_type == 'MST':
-        return MST(thresh=thresh, filename=filename, window=window, enddate=enddate, startdate=startdate, space=space)
+        return MST(thresh=thresh, filename=filename, window=window, enddate=enddate, startdate=startdate, space=space,
+                   shrinkage=shrinkage)
     elif tree_type == 'DBHT':
         pass
         # ......
