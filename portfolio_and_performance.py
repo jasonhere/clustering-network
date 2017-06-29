@@ -230,6 +230,8 @@ def min_variance_weights(cov):
 
 def clustering_performance(filename, thresh, universes, weighted='TRUE', window=100):
     price = importdata(filename)
+    price = price.ffill()
+    price = price.bfill()
     univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
     pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
@@ -242,8 +244,6 @@ def clustering_performance(filename, thresh, universes, weighted='TRUE', window=
             cov = cov_matrix(price, thresh, universes[t][j], window, t)
             pricewindow = price[pricedates.index(t) - 1:pricedates.index(t) + 1 + space][
                 universes[t][j]]
-            pricewindow = pricewindow.ffill()
-            pricewindow = pricewindow.bfill()
             r = pricewindow / pricewindow.shift(1)
             r = r.iloc[1:]
             if len(np.atleast_1d(cov)) == 1:
@@ -292,12 +292,12 @@ def benchmark_performance(filename, thresh, universes, window=100):
                                                                                                  r[tt:tt].as_matrix()[
                                                                                                      0])
     df_weighted = pd.DataFrame([[key, value] for key, value in SP100Performance_weighted.iteritems()],
-                               columns=["Date", "SP100"])
+                               columns=["Date", "benchmark"])
     df_weighted = df_weighted.set_index(pd.DatetimeIndex(df_weighted['Date']))
     df_weighted = df_weighted.drop(['Date'], axis=1)
     df_weighted.sort_index(inplace=True)
     df_unweighted = pd.DataFrame([[key, value] for key, value in SP100Performance_unweighted.iteritems()],
-                                 columns=["Date", "SP100"])
+                                 columns=["Date", "benchmark"])
     df_unweighted = df_unweighted.set_index(pd.DatetimeIndex(df_unweighted['Date']))
     df_unweighted = df_unweighted.drop(['Date'], axis=1)
     df_unweighted.sort_index(inplace=True)
