@@ -216,8 +216,8 @@ def no_cluster_universe(trees, c_measure, quantile=0.25):
     return result
 
 
-def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28"):
-    """To generate correlation matrix for a certain period and a list of stock (stocklist), method = 'gower' or 'power',
+def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28", shrinkage='None'):
+    """To generate covariance matrix for a certain period and a list of stock (stocklist),
      differs from the one in 'all_functions.py' by the 'stocklist' argument"""
     end = int(np.where(price.index == enddate)[0])
     start = end - window
