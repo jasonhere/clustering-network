@@ -4,6 +4,7 @@ import pandas as pd
 from cvxopt import blas, solvers
 import cvxopt as opt
 from trees import importdata
+from sklearn.covariance import ledoit_wolf
 
 
 def weighted_degree_centrality(T):
@@ -82,7 +83,7 @@ def measure_performance(pricedf, stocklist, startdate, space=1, weights=None):
         return None, None
 
 
-def performance(dic, pricedf, space=1, weights=False):
+def performance(dic, pricedf, space=1, window=100, weights=False, shrinkage='None'):
     """dic: dictonary of central and peripheral stock list for each window, generated from get_portfolio() function"""
     colnames = ["Upper", "Lower"]
     if weights:
@@ -106,8 +107,8 @@ def performance(dic, pricedf, space=1, weights=False):
             performance.set_value(date, "Upper", cr)
             performance.set_value(date, "Lower", pr)
             # use cov_matrix() in clustering_functions.py
-            c_cov = cov_matrix(ret, clist, 250, date)
-            p_cov = cov_matrix(ret, plist, 250, date)
+            c_cov = cov_matrix(ret, clist, window, date, shrinkage=shrinkage)
+            p_cov = cov_matrix(ret, plist, window, date, shrinkage=shrinkage)
             cw = min_variance_weights(c_cov)
             pw = min_variance_weights(p_cov)
             crw = measure_performance(pricedf, clist, d, space, weights=cw)[1]
@@ -226,7 +227,14 @@ def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28", shrin
     sub = sub.bfill()
     subret = sub / sub.shift(1)
     subret = subret.iloc[1:]
-    cov_mat = np.cov(subret.T)
+
+    if shrinkage == "None":
+        cov_mat = np.cov(subret.T)
+    elif shrinkage == "LedoitWolf":
+        cov_mat = ledoit_wolf(subret, assume_centered=True)[0]
+    else:
+        print "'shrinkage' can only be 'None' or 'LedoitWolf'"
+        return None
     return cov_mat
 
 
@@ -244,7 +252,7 @@ def min_variance_weights(cov):
     return np.asarray(weights), risk
 
 
-def clustering_performance(filename, thresh, universes, weighted='TRUE', window=100):
+def clustering_performance(filename, thresh, universes, weighted='TRUE', window=100, shrinkage='None'):
     price = importdata(filename)
     price = price.ffill()
     price = price.bfill()
@@ -257,7 +265,7 @@ def clustering_performance(filename, thresh, universes, weighted='TRUE', window=
     result['peripheral'][univdates[0]] = 1
     for t in univdates:
         for j in ['central', 'peripheral']:
-            cov = cov_matrix(price, thresh, universes[t][j], window, t)
+            cov = cov_matrix(price, thresh, universes[t][j], window, t, shrinkage=shrinkage)
             pricewindow = price[pricedates.index(t) - 1:pricedates.index(t) + 1 + space][
                 universes[t][j]]
             r = pricewindow / pricewindow.shift(1)
@@ -275,7 +283,7 @@ def clustering_performance(filename, thresh, universes, weighted='TRUE', window=
     return result
 
 
-def benchmark_performance(filename, thresh, universes, window=100):
+def benchmark_performance(filename, thresh, universes, window=100, shrinkage="None"):
     price = importdata(filename)
     univdates = sorted(universes['Newman']['degree'].keys(), key=lambda d: map(int, d.split('-')))
     pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
@@ -283,7 +291,7 @@ def benchmark_performance(filename, thresh, universes, window=100):
     SP100Performance_weighted = {univdates[0]: 1}
     SP100Performance_unweighted = {univdates[0]: 1}
     for t in univdates:
-        cov = cov_matrix(price, thresh, price.keys(), window, t)
+        cov = cov_matrix(price, thresh, price.keys(), window, t, shrinkage=shrinkage)
         end = int(np.where(price.index == t)[0])
         start = end - window
         univ = price[start:end + 1][price.keys()].dropna(thresh=thresh, axis=1).columns
