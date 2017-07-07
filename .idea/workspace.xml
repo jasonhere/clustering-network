@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="Fixed naming and nan issues in measuring performance.">
+    <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500 write-up.docx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500NewmanBetweennessWeighted.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500NewmanBetweennessWeighted_with_single.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/honey.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.wrdsauthrc.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/053c1fab7edea617.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Central-NewmanBetweenness-SP500_1985.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500_constituents.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500_cusip.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500_permno.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500_ticker.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SP500list_20161231_cusip.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/SP100_20170612.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/SP100_20170627.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/WRDS/SP500_div_1985.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/WRDS/SP500_price_1985.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/WRDS/SP500_ret_1985.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/quandl/SP100_full.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/quandl/SP100_prices.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/quandl/SP500_from_1985.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/quandl/SP500_full.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/quandl/SP500list.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/testWRDS.ipynb" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SP100_20170612.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SP100_20170627.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SP100_full.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SP100_prices.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SP500_full.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/SP500list.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/20170330Centrality/20170331-py2.ipynb" afterPath="$PROJECT_DIR$/20170330Centrality/20170331-py2.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,17 +54,20 @@
       <file leaf-file-name="portfolio_and_performance.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="218" column="93" lean-forward="false" selection-start-line="218" selection-start-column="93" selection-end-line="218" selection-end-column="93" />
+            <state relative-caret-position="15">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#185#594#0" expanded="false" />
-                <element signature="e#632#869#0" expanded="false" />
-                <element signature="e#927#1591#0" expanded="false" />
-                <element signature="e#2513#2887#0" expanded="false" />
-                <element signature="e#2949#4640#0" expanded="false" />
-                <element signature="e#8959#9365#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="testWRDS.ipynb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/testWRDS.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="5" />
             </state>
           </provider>
         </entry>
@@ -43,8 +75,8 @@
       <file leaf-file-name="downloaddata.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/downloaddata.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="150">
+              <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -54,33 +86,7 @@
         <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clustering.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/clustering.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2115">
-              <caret line="141" column="62" lean-forward="false" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="62" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#6661#7367#0" expanded="false" />
-                <element signature="e#7410#7823#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="trees.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/trees.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-669">
-              <caret line="33" column="62" lean-forward="true" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
+              <selected id="3" />
             </state>
           </provider>
         </entry>
@@ -90,15 +96,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>min_va</find>
-      <find>clustering_performa</find>
       <find>min_variance</find>
       <find>.dropna(axis=1, how='any'</find>
       <find>clustering_univ</find>
@@ -124,9 +128,11 @@
       <find>construct_t</find>
       <find>csv</find>
       <find>clustering</find>
-      <find>clusters</find>
       <find>index</find>
       <find>cov_matrix</find>
+      <find>clusters</find>
+      <find>250</find>
+      <find>raw_data.CUSIP.unique()</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,8 +160,9 @@
         <option value="$PROJECT_DIR$/clustering.py" />
         <option value="$PROJECT_DIR$/downloaddata.py" />
         <option value="$PROJECT_DIR$/trees.py" />
-        <option value="$PROJECT_DIR$/runningscript.ipynb" />
         <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
+        <option value="$PROJECT_DIR$/runningscript.ipynb" />
+        <option value="$PROJECT_DIR$/testWRDS.ipynb" />
       </list>
     </option>
   </component>
@@ -179,6 +186,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -192,23 +200,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="20170330Centrality" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -219,6 +212,7 @@
     <property name="SearchEverywhereHistoryKey" value="cov_matrix&#9;null&#9;null&#10;download_dai&#9;null&#9;null&#10;performance&#9;null&#9;null" />
     <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
+    <property name="two.files.diff.last.used.file" value="$USER_HOME$/Downloads/update_runningscript&amp;portfolio_and_performance/portfolio_and_performance.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -494,7 +488,21 @@
       <option name="project" value="LOCAL" />
       <updated>1498772412917</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Fixed naming and nan issues in measuring performance.">
+      <created>1498772433638</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1498772433638</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Fixed functions calling cov_matrix with shrinkage option.">
+      <created>1499263340681</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1499263340682</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -507,10 +515,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18416801" sideWeight="0.49452055" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18659128" sideWeight="0.49452055" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503125" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26027396" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
@@ -522,6 +529,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18416801" sideWeight="0.50547945" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -602,11 +610,12 @@
     <MESSAGE value="Downloaded SP500 full history to SP500_full.csv." />
     <MESSAGE value="Fixed incomplete script" />
     <MESSAGE value="Fixed hard-coded matrix length in contruct_trees()." />
-    <MESSAGE value="Fixed naming and nan issues in measuring performance." />
     <MESSAGE value="Added functionaality to compute performance without clustering" />
     <MESSAGE value="Added shrinkage option for cov-matrix." />
     <MESSAGE value="Need to add shrinkage to cov_matrix() function." />
-    <option name="LAST_COMMIT_MESSAGE" value="Need to add shrinkage to cov_matrix() function." />
+    <MESSAGE value="Fixed naming and nan issues in measuring performance." />
+    <MESSAGE value="Fixed functions calling cov_matrix with shrinkage option." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed functions calling cov_matrix with shrinkage option." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -616,8 +625,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/__init__.py" />
-    <entry file="file://$PROJECT_DIR$/Clustering/downloaddata.py" />
     <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -652,11 +659,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#6661#7367#0" expanded="false" />
-            <element signature="e#7410#7823#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -664,9 +666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="836">
           <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -814,7 +813,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="362">
           <caret line="163" column="45" lean-forward="true" selection-start-line="163" selection-start-column="45" selection-end-line="163" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -843,9 +841,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2940">
           <caret line="196" column="30" lean-forward="true" selection-start-line="196" selection-start-column="30" selection-end-line="196" selection-end-column="30" />
-          <folding>
-            <element signature="e#28#47#0" expanded="false" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/update_runningscript&amp;portfolio_and_performance/portfolio_and_performance.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trees.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="33" column="62" lean-forward="true" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
         </state>
       </provider>
     </entry>
@@ -853,34 +862,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2115">
           <caret line="141" column="62" lean-forward="false" selection-start-line="141" selection-start-column="34" selection-end-line="141" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#6661#7367#0" expanded="false" />
-            <element signature="e#7410#7823#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/portfolio_and_performance.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="218" column="93" lean-forward="false" selection-start-line="218" selection-start-column="93" selection-end-line="218" selection-end-column="93" />
+        <state relative-caret-position="15">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#185#594#0" expanded="false" />
-            <element signature="e#632#869#0" expanded="false" />
-            <element signature="e#927#1591#0" expanded="false" />
-            <element signature="e#2513#2887#0" expanded="false" />
-            <element signature="e#2949#4640#0" expanded="false" />
-            <element signature="e#8959#9365#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/downloaddata.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
           <folding />
         </state>
       </provider>
@@ -892,13 +890,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trees.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-669">
-          <caret line="33" column="62" lean-forward="true" selection-start-line="33" selection-start-column="62" selection-end-line="33" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/testWRDS.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="5" />
         </state>
       </provider>
     </entry>
