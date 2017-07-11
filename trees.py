@@ -5,17 +5,16 @@ import math
 from sklearn.covariance import ledoit_wolf
 
 
-def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower", shrinkage="None"):
+def corr_matrix(ret, thresh, window=250, enddate="2017-01-24", method="gower", shrinkage="None"):
     """To generate correlation matrix for a certain period, method = 'gower' or 'power'"""
-    end = int(np.where(df.index == enddate)[0])
+    end = int(np.where(ret.index == enddate)[0])
     start = end - window
-    sub = df[start:end + 1].dropna(thresh=thresh, axis=1)  # drop whole column when there are less than or equal to
+    sub = ret[start:end].dropna(thresh=thresh, axis=1)  # drop whole column when there are less than or equal to
     # thresh number of non-nan entries in the window
     # print(sub)
     sub = sub.ffill()
     sub = sub.bfill()
-    subret = np.log(sub) - np.log(sub.shift(1))
-    subret = subret[1:]
+    subret = sub
     if shrinkage == "None":
         corr_mat = subret.corr(min_periods=1)
     elif shrinkage == "LedoitWolf":
@@ -35,18 +34,19 @@ def corr_matrix(df, thresh, window=250, enddate="2017-01-24", method="gower", sh
     return corr_mat
 
 
-def rolling_corr(df, thresh, window=250, enddate="2017-01-24", startdate='2005-01-03', space=10, shrinkage="None"):
+def rolling_corr(ret, thresh, window=250, enddate="2017-01-24", startdate='2005-01-03', space=10, shrinkage="None"):
     """Return a dictionary of correlation matrices.
     The key is the enddate of the window, the value is corresponding correlation matrix"""
-    end = int(np.where(df.index == enddate)[0])
-    start = int(np.where(df.index == startdate)[0])
+    end = int(np.where(ret.index == enddate)[0])
+    start = int(np.where(ret.index == startdate)[0])
     space = -space
-    dates = df.index.values
+    dates = ret.index.values
     dates = dates[end:start:space]
     result = {}
     for d in dates:
         d = pd.to_datetime(d).strftime("%Y-%m-%d")
-        result[str(d)] = corr_matrix(df, thresh, window, enddate=d, shrinkage=shrinkage)
+        result[str(d)] = corr_matrix(ret, thresh, window, enddate=d, shrinkage=shrinkage)
+        print "corr_matrix for " + d + " done."
     return result
 
 
@@ -72,8 +72,12 @@ def constructgraph(corr_matrix):
 
 
 def importdata(filename):
-    """imports data from a .csv file, returns a pandas dataframe of prices and another of log returns"""
-    df = pd.read_csv(filename)
+    """imports data from a .csv file, returns a pandas dataframe of daily returns"""
+    df = pd.read_csv(filename, nrows=10)
+    nodenames = df.columns[1:]
+    dtypedict = {stock: np.float64 for stock in nodenames}
+    dtypedict['Date'] = str
+    df = pd.read_csv(filename, dtype=dtypedict)
     # set date as index and sort by date
     df["Date"] = pd.to_datetime(df["Date"])
     df = df.set_index(pd.DatetimeIndex(df['Date']))
@@ -90,14 +94,15 @@ def MST(thresh, filename="SP100_prices.csv", window=250, enddate="2017-01-24", s
         shrinkage="None"):
     """Returns a dictionary of Minimum Spanning Tree for each end date,
     space means the interval between two sample updates"""
-    price = importdata(filename)
-    dic = rolling_corr(price, thresh, window, enddate, startdate, space, shrinkage=shrinkage)
+    ret = importdata(filename)
+    dic = rolling_corr(ret, thresh, window, enddate, startdate, space, shrinkage=shrinkage)
     trees = {}
     for key in sorted(dic.keys()):
         corr_matrix = dic[key]
         G = constructgraph(corr_matrix)
         T = nx.minimum_spanning_tree(G, "weight")
         trees[key] = T
+        print "building tree for date " + key + " done."
     return trees
 
 
