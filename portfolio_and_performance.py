@@ -217,17 +217,12 @@ def no_cluster_universe(trees, c_measure, quantile=0.25):
     return result
 
 
-def cov_matrix(price, thresh, stocklist, window=250, enddate="2017-02-28", shrinkage='None'):
+def cov_matrix(ret, thresh, stocklist, window=250, enddate="2017-02-28", shrinkage='None'):
     """To generate covariance matrix for a certain period and a list of stock (stocklist),
      differs from the one in 'all_functions.py' by the 'stocklist' argument"""
-    end = int(np.where(price.index == enddate)[0])
+    end = int(np.where(pd.to_datetime(ret.index).strftime("%Y-%m-%d") == enddate)[0])
     start = end - window
-    sub = price[start:end + 1][stocklist].dropna(thresh=thresh, axis=1)
-    sub = sub.ffill()
-    sub = sub.bfill()
-    subret = sub / sub.shift(1)
-    subret = subret.iloc[1:]
-
+    subret = ret[start:end][stocklist].dropna(thresh=thresh, axis=1)
     if shrinkage == "None":
         cov_mat = np.cov(subret.T)
     elif shrinkage == "LedoitWolf":
@@ -252,69 +247,107 @@ def min_variance_weights(cov):
     return np.asarray(weights), risk
 
 
-def clustering_performance(filename, thresh, universes, weighted='TRUE', window=100, shrinkage='None'):
-    price = importdata(filename)
-    price = price.ffill()
-    price = price.bfill()
+def clustering_performance(price, ret, div, cpr, thresh, universes, weighted='TRUE', window=100, shrinkage='None'):
     univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
-    pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.to_datetime(price.index.values).strftime("%Y-%m-%d"), key=lambda d: map(int, d.split('-')))
+    divdates = sorted(pd.to_datetime(div.index.values).strftime("%Y-%m-%d"), key=lambda d: map(int, d.split('-')))
+    cprdates = sorted(pd.to_datetime(cpr.index.values).strftime("%Y-%m-%d"), key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
+    ret = ret.fillna(0)
+    price = price.ffill()
+    div = div.fillna(0)
+    cpr = cpr.ffill()
     result = {'central': {}}
     result['central'][univdates[0]] = 1
     result['peripheral'] = {}
     result['peripheral'][univdates[0]] = 1
+    cashvalue = {'central': 0.0, 'peripheral': 0.0}
+    stockvalue = {'central': 1.0, 'peripheral': 1.0}
     for t in univdates:
         for j in ['central', 'peripheral']:
-            cov = cov_matrix(price, thresh, universes[t][j], window, t, shrinkage=shrinkage)
-            pricewindow = price[pricedates.index(t) - 1:pricedates.index(t) + 1 + space][
-                universes[t][j]]
-            r = pricewindow / pricewindow.shift(1)
+            cov = cov_matrix(ret, thresh, universes[t][j], window, t, shrinkage=shrinkage)
+            pricewindow = price[pricedates.index(t) - 1:pricedates.index(t) + 2 + space][
+                universes[t][j]].ffill()
+            cprwindow = cpr[cprdates.index(t) - 1:cprdates.index(t) + 2 + space][
+                universes[t][j]].ffill()
+            divwindow = div[divdates.index(t) - 1:divdates.index(t) + 2 + space][
+                universes[t][j]].fillna(0)
+            adjustedpricewindow = pricewindow / cprwindow
+            r = adjustedpricewindow / adjustedpricewindow.shift(1)
             r = r.iloc[1:]
+            weighted = 'TRUE'
             if len(np.atleast_1d(cov)) == 1:
                 weights = [1]
             elif weighted == 'TRUE':
                 weights = np.transpose(min_variance_weights(cov)[0])[0]
             else:
                 weights = np.divide(np.ones(len(cov)), len(cov))
-            for tt in pricedates[pricedates.index(t) + 1:
-                            pricedates.index(t) + 1 + space]:
-                result[j][tt] = result[j][pricedates[pricedates.index(tt) - 1]] * np.dot(weights,
-                                                                                         r[tt:tt].as_matrix()[0])
+            cashvalue[j] = sum(divwindow[t:t].values[0] / pricewindow[pricedates[pricedates.index(t) - 1]:pricedates[
+                pricedates.index(t) - 1]].values[0] * weights)
+            stockvalue[j] = result[j][t]
+            for tt in pricedates[pricedates.index(t) + 1:pricedates.index(t) + 1 + space]:
+                stockvalue[j] = stockvalue[j] * (weights * r[tt:tt]).sum(axis=1)[0]
+                cashvalue[j] += sum(divwindow[tt:tt].values[0] / pricewindow[
+                                                                 pricedates[pricedates.index(tt) - 1]:pricedates[
+                                                                     pricedates.index(tt) - 1]].values[0] * weights)
+                result[j][tt] = stockvalue[j] + cashvalue[j]
     return result
 
 
-def benchmark_performance(filename, thresh, universes, window=100, shrinkage="None"):
-    price = importdata(filename)
-    univdates = sorted(universes['Newman']['degree'].keys(), key=lambda d: map(int, d.split('-')))
-    pricedates = sorted(pd.read_csv(filename)["Date"], key=lambda d: map(int, d.split('-')))
+def benchmark_performance(price, ret, div, cpr, thresh, universes, window=100, shrinkage="None"):
+    univdates = sorted(universes.keys(), key=lambda d: map(int, d.split('-')))
+    pricedates = sorted(pd.to_datetime(price.index.values).strftime("%Y-%m-%d"), key=lambda d: map(int, d.split('-')))
+    divdates = sorted(pd.to_datetime(div.index.values).strftime("%Y-%m-%d"), key=lambda d: map(int, d.split('-')))
+    cprdates = sorted(pd.to_datetime(cpr.index.values).strftime("%Y-%m-%d"), key=lambda d: map(int, d.split('-')))
     space = pricedates.index(univdates[1]) - pricedates.index(univdates[0])
+    ret = ret.fillna(0)
+    price = price.ffill()
+    div = div.fillna(0)
+    cpr = cpr.ffill()
     SP100Performance_weighted = {univdates[0]: 1}
     SP100Performance_unweighted = {univdates[0]: 1}
+    cashvalue = {'weighted': 0.0, 'unweighted': 0.0}
+    stockvalue = {'weighted': 1.0, 'unweighted': 1.0}
     for t in univdates:
-        cov = cov_matrix(price, thresh, price.keys(), window, t, shrinkage=shrinkage)
+        cov = cov_matrix(ret, thresh, ret.keys(), window, t, shrinkage=shrinkage)
         end = int(np.where(price.index == t)[0])
         start = end - window
         univ = price[start:end + 1][price.keys()].dropna(thresh=thresh, axis=1).columns
         weights = np.transpose(min_variance_weights(cov)[0])[0]
-        pricewindow = price[pricedates.index(t) - window - 1:pricedates.index(t) + 1 + space]
+        pricewindow = price[pricedates.index(t) - 1:pricedates.index(t) + 1 + space]
         pricewindow = pricewindow.ffill()
         pricewindow = pricewindow.bfill()
         pricewindow = pricewindow[univ]
-        r = pricewindow / pricewindow.shift(1)
+        cprwindow = cpr[cprdates.index(t) - 1:cprdates.index(t) + 2 + space][univ].ffill()
+        divwindow = div[divdates.index(t) - 1:divdates.index(t) + 2 + space][univ].fillna(0)
+        adjustedpricewindow = pricewindow / cprwindow
+        r = adjustedpricewindow / adjustedpricewindow.shift(1)
         r = r.iloc[1:]
-        for tt in pricedates[pricedates.index(t) + 1:
-                        pricedates.index(t) + 1 + space]:
-            SP100Performance_weighted[tt] = SP100Performance_weighted[pricedates[pricedates.index(tt) - 1]] * np.dot(
-                weights, r[tt:tt].as_matrix()[0])
+        cashvalue['weighted'] = sum(
+            divwindow[t:t].values[0] / pricewindow[pricedates[pricedates.index(t) - 1]:pricedates[
+                pricedates.index(t) - 1]].values[0] * weights)
+        stockvalue['weighted'] = SP100Performance_weighted[t]
+        for tt in pricedates[pricedates.index(t) + 1:pricedates.index(t) + 1 + space]:
+            stockvalue['weighted'] = stockvalue['weighted'] * (weights * r[tt:tt]).sum(axis=1)[0]
+            cashvalue['weighted'] += sum(divwindow[tt:tt].values[0] / pricewindow[
+                                                                      pricedates[pricedates.index(tt) - 1]:pricedates[
+                                                                          pricedates.index(tt) - 1]].values[
+                0] * weights)
+            SP100Performance_weighted[tt] = stockvalue['weighted'] + cashvalue['weighted']
         weights = np.divide(np.ones(len(cov)), len(cov))
+        cashvalue['unweighted'] = sum(
+            divwindow[t:t].values[0] / pricewindow[pricedates[pricedates.index(t) - 1]:pricedates[
+                pricedates.index(t) - 1]].values[0] * weights)
+        stockvalue['unweighted'] = SP100Performance_unweighted[t]
         for tt in pricedates[pricedates.index(t) + 1:
                         pricedates.index(t) + 1 + space]:
-            # SP100Performance_unweighted[tt] = SP100Performance_unweighted[t]*np.dot(weights,np.divide(price[tt:tt].as_matrix()[0],
-            # price[t:t].as_matrix()[0]))
-            SP100Performance_unweighted[tt] = SP100Performance_unweighted[
-                                                  pricedates[pricedates.index(tt) - 1]] * np.dot(weights,
-                                                                                                 r[tt:tt].as_matrix()[
-                                                                                                     0])
+            stockvalue['unweighted'] = stockvalue['unweighted'] * (weights * r[tt:tt]).sum(axis=1)[0]
+            cashvalue['unweighted'] += sum(divwindow[tt:tt].values[0] / pricewindow[
+                                                                        pricedates[pricedates.index(tt) - 1]:pricedates[
+                                                                            pricedates.index(tt) - 1]].values[
+                0] * weights)
+            SP100Performance_unweighted[tt] = stockvalue['unweighted'] + cashvalue['unweighted']
+
     df_weighted = pd.DataFrame([[key, value] for key, value in SP100Performance_weighted.iteritems()],
                                columns=["Date", "benchmark"])
     df_weighted = df_weighted.set_index(pd.DatetimeIndex(df_weighted['Date']))
