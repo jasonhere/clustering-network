@@ -1,15 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="Finished performance analysis">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/performancescriptt.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/clustering.iml" afterPath="$PROJECT_DIR$/.idea/clustering.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_ClausetNewman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_ClausetNewman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_ClausetNewman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_Newman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_Newman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_Newman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_benchmark_.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_single_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_single_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_unweighted_single_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_ClausetNewman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_ClausetNewman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_ClausetNewman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_Newman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_Newman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_Newman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_benchmark_.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_single_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_single_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/LedoitWolf_weighted_single_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_ClausetNewman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_ClausetNewman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_ClausetNewman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_Newman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_Newman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_Newman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_benchmark_.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_single_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_single_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_unweighted_single_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_ClausetNewman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_ClausetNewman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_ClausetNewman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_Newman_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_Newman_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_Newman_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_benchmark_.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_single_nocluster_betweenness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_single_nocluster_closeness.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Graphs/None_weighted_single_nocluster_degree.pdf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Sharperatios.csv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/WRDS/SP500_cpr_1985.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/WRDS/SP500_div_1985.csv" afterPath="$PROJECT_DIR$/data/WRDS/SP500_div_1985.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/WRDS/SP500_price_1985.csv" afterPath="$PROJECT_DIR$/data/WRDS/SP500_price_1985.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/WRDS/SP500_ret_1985.csv" afterPath="$PROJECT_DIR$/data/WRDS/SP500_ret_1985.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portfolio_and_performance.py" afterPath="$PROJECT_DIR$/portfolio_and_performance.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,11 +76,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="runningscript.ipynb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="runningscript.ipynb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
               <selected id="42" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="performancescriptt.ipynb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/performancescriptt.ipynb">
+          <provider selected="true" editor-type-id="ipnb-editor">
+            <state>
+              <selected id="30" />
             </state>
           </provider>
         </entry>
@@ -110,15 +166,15 @@
         <option value="$PROJECT_DIR$/testWRDS.ipynb" />
         <option value="$PROJECT_DIR$/portfolio_and_performance.py" />
         <option value="$USER_HOME$/Downloads/runningscript.ipynb" />
-        <option value="$PROJECT_DIR$/runningscript.ipynb" />
         <option value="$PROJECT_DIR$/20170330Centrality/performancescriptt.ipynb" />
+        <option value="$PROJECT_DIR$/runningscript.ipynb" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1964" />
+    <option name="x" value="299" />
     <option name="y" value="33" />
-    <option name="width" value="1876" />
+    <option name="width" value="1874" />
     <option name="height" value="2127" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -138,6 +194,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -160,31 +217,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="pickle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="clustering" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="20170330Centrality" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="FullScreen" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/Languages" value="Python" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -489,7 +530,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499898484137</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Finished performance analysis">
+      <created>1499919784596</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1499919784596</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -501,12 +549,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1964" y="33" width="1876" height="2127" extended-state="4" />
+    <frame x="299" y="33" width="1874" height="2127" extended-state="4" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17537314" sideWeight="0.49452055" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17502668" sideWeight="0.49452055" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34663972" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503125" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26023245" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -522,6 +569,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32876712" sideWeight="0.496875" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -603,7 +651,8 @@
     <MESSAGE value="Fixed naming and nan issues in measuring performance." />
     <MESSAGE value="Fixed functions calling cov_matrix with shrinkage option." />
     <MESSAGE value="Modified functions to use daily return data." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified functions to use daily return data." />
+    <MESSAGE value="Finished performance analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finished performance analysis" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -613,13 +662,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/clustering.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/trees.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="836">
@@ -811,13 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/downloaddata.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documents/portfolio_and_performance.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8357">
@@ -850,9 +885,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-130">
           <caret line="264" column="52" lean-forward="false" selection-start-line="264" selection-start-column="52" selection-end-line="265" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -863,17 +895,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
-      <provider selected="true" editor-type-id="ipnb-editor">
-        <state>
-          <selected id="40" />
+    <entry file="file://$PROJECT_DIR$/20170330Centrality/performancescriptt.ipynb" />
+    <entry file="file://$PROJECT_DIR$/downloaddata.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="32" lean-forward="false" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/20170330Centrality/performancescriptt.ipynb">
+    <entry file="file://$PROJECT_DIR$/runningscript.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="30" />
+          <selected id="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/performancescriptt.ipynb">
+      <provider selected="true" editor-type-id="ipnb-editor">
+        <state>
+          <selected id="-1" />
         </state>
       </provider>
     </entry>
