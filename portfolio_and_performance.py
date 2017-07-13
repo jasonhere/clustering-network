@@ -275,7 +275,6 @@ def clustering_performance(price, ret, div, cpr, thresh, universes, weighted='TR
             adjustedpricewindow = pricewindow / cprwindow
             r = adjustedpricewindow / adjustedpricewindow.shift(1)
             r = r.iloc[1:]
-            weighted = 'TRUE'
             if len(np.atleast_1d(cov)) == 1:
                 weights = [1]
             elif weighted == 'TRUE':
