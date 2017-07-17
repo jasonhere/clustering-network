@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="db10e504-6144-4a96-b2a5-3d5250bfa315" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MATLAB/data_for_iris_demo.mat" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MATLAB/DBHTs.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MATLAB/MATLABtest.ipynb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MATLAB/addandminus.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MATLAB/iris_demo.m" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/MATLAB/pmfg.m" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/runningscript.ipynb" afterPath="$PROJECT_DIR$/runningscript.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -578,7 +571,14 @@
       <option name="project" value="LOCAL" />
       <updated>1499961586209</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Added DBHT.">
+      <created>1500333722402</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1500333722402</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView">
@@ -695,7 +695,8 @@
     <MESSAGE value="Modified functions to use daily return data." />
     <MESSAGE value="Finished performance analysis" />
     <MESSAGE value="Added data and results" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added data and results" />
+    <MESSAGE value="Added DBHT." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added DBHT." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
