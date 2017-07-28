@@ -1,37 +1,37 @@
 function [T8,Rpm,Adjv,Dpm,Mv,Z]=DBHTs(D,S)
 % Perform DBHT clustering, a deterministic technique which only requires a
-% similarity matrix S, and related dissimilarity matrix D. 
-% see: Song, Won-Min, T. Di Matteo, and Tomaso Aste. "Hierarchical 
-% information clustering by means of topologically embedded graphs." 
+% similarity matrix S, and related dissimilarity matrix D.
+% see: Song, Won-Min, T. Di Matteo, and Tomaso Aste. "Hierarchical
+% information clustering by means of topologically embedded graphs."
 % PloS one 7.3 (2012): e31929.
-% This version makes extensive use of graph-theoretic filtering technique 
+% This version makes extensive use of graph-theoretic filtering technique
 % called Triangulated Maximally Filtered Graph (TMFG).
 %
 % Function call: [T8,Rpm,Adjv,Dpm,Mv,Z]=DBHTs(D,S);
-% 
+%
 % Input
-% D = NxN dissimilarity matrix - e.g. a distance: 
+% D = NxN dissimilarity matrix - e.g. a distance:
 %       D=pdist(data,'euclidean'); D=squareform(D);
 % S = NxN similarity matrix (non-negative)- e.g. correlation coefficiant+1:
 %       S = 2-D.^2/2; or another possible choice can be S = exp(-D);
 %
 % Output
 %
-% T8 = Nx1 cluster membership vector. 
-% Rpm = NxN adjacency matrix of PMFG. 
-% Adjv = Bubble cluster membership matrix from BubbleCluster8. 
+% T8 = Nx1 cluster membership vector.
+% Rpm = NxN adjacency matrix of PMFG.
+% Adjv = Bubble cluster membership matrix from BubbleCluster8.
 % Dpm = NxN shortest path length matrix of PMFG
 % Mv = NxNb bubble membership matrix. Nv(n,bi)=1 indicates vertex n is a
-% vertex of bubble bi. 
+% vertex of bubble bi.
 % Z DBHT hierarchy
 %
-% This version of the code makes use of funtions from 
+% This version of the code makes use of funtions from
 % Brain Connectivity Toolbox
 % https://sites.google.com/site/bctnet/measures/list
 %
 % TA 14/10/2014
-% 
-Rpm =PMFG_T2s(S);
+%
+Rpm =pmfg(S);
 Apm=Rpm;Apm(Apm~=0)=D(Apm~=0);
 Dpm=distance_wei(Apm);
 [H1,Hb,Mb,CliqList,Sb]=CliqHierarchyTree2s(Rpm,'uniqueroot');
@@ -54,17 +54,17 @@ end
 
 function [A,tri,clique3,clique4,cliqueTree]=PMFG_T2s(W)
 % PMFG_T2  - this is the TMFG construction
-%           Computes a Triangulated Maximally Filtered Graph (TMFG) starting from 
-%           a tetrahedron and inserting recursively vertices inside 
+%           Computes a Triangulated Maximally Filtered Graph (TMFG) starting from
+%           a tetrahedron and inserting recursively vertices inside
 %           existing triangles (T2 move) in order to approxiamte a
 %           maxiaml planar graph with the largest total weight - non
 %           negative weights
-% Function call 
+% Function call
 %           [A,tri,clique3]=PMFG_T2(W)
 %           [A,tri,clique3,clique4]=PMFG_T2(W)
 %           [A,tri,clique3,clique4,cliqueTree]=PMFG_T2(W)
-% Input     
-%           W:  a NxN matrix of -non-negative- weights 
+% Input
+%           W:  a NxN matrix of -non-negative- weights
 % Output
 %           A: adjacency matrix of the PMFG (with weights)
 %           tri: list of triangles (triangular faces)
@@ -77,9 +77,9 @@ function [A,tri,clique3,clique4,cliqueTree]=PMFG_T2s(W)
 %    [A,tri,clique3,clique4]=PMFG_T2(corr(randn(80,100)));
 %    [A,tri,clique3,clique4,cliqueTree]=PMFG_T2(corr(randn(80,100)));
 %
-% Reference 
-%           Guido Previde Massara, Tomaso Aste & Tiziana Di Matteo, 
-%           Planar Random Markov Fields and Dependence Modelling in 
+% Reference
+%           Guido Previde Massara, Tomaso Aste & Tiziana Di Matteo,
+%           Planar Random Markov Fields and Dependence Modelling in
 %           Financial Networks, to be submitted 2014.
 %
 % TA 28/12/2013
@@ -101,7 +101,7 @@ tri(1,:)=in_v([1 2 3]);
 tri(2,:)=in_v([2 3 4]);
 tri(3,:)=in_v([1 2 4]);
 tri(4,:)=in_v([1 3 4]);
-A(in_v(1),in_v(2)) = 1; 
+A(in_v(1),in_v(2)) = 1;
 A(in_v(1),in_v(3)) = 1;
 A(in_v(1),in_v(4)) = 1;
 A(in_v(2),in_v(3)) = 1;
@@ -132,8 +132,8 @@ for k=5:N
     %% update adjacency matrix
     A(ve,tri(tr,:))=1;
     %% update 3-clique list
-    clique3(k-4,:) = tri(tr,:); 
-    %% update triangle list replacing 1 and adding 2 triangles 
+    clique3(k-4,:) = tri(tr,:);
+    %% update triangle list replacing 1 and adding 2 triangles
     tri(kk+1,:) = [tri(tr,[1,3]),ve]; % add
     tri(kk+2,:) = [tri(tr,[2,3]),ve]; % add
     tri(tr,:)   = [tri(tr,[1,2]),ve]; % replace
@@ -143,7 +143,7 @@ for k=5:N
     gain(ou_v,kk+1)= sum(W(ou_v,tri(kk+1,:)),2);
     gain(ou_v,kk+2)= sum(W(ou_v,tri(kk+2,:)),2);
     %% update number of triangles
-    kk = kk+2; 
+    kk = kk+2;
     if mod(k,1000)==0,fprintf('PMFG T2: %0.2f per-cent done\n',k/N*100);end
 end
 A = W.*((A+A')==1);
@@ -156,8 +156,8 @@ function [D B]=distance_wei(L)
 %   [D B] = distance_wei(L);
 %
 %   The distance matrix contains lengths of shortest paths between all
-%   pairs of nodes. An entry (u,v) represents the length of shortest path 
-%   from node u to node v. The average shortest path length is the 
+%   pairs of nodes. An entry (u,v) represents the length of shortest path
+%   from node u to node v. The average shortest path length is the
 %   characteristic path length of the network.
 %
 %   Input:      L,      Directed/undirected connection-length matrix.
@@ -170,11 +170,11 @@ function [D B]=distance_wei(L)
 %   obtained via a mapping from weight to length. For instance, in a
 %   weighted correlation network higher correlations are more naturally
 %   interpreted as shorter distances and the input matrix should
-%   consequently be some inverse of the connectivity matrix. 
-%       The number of edges in shortest weighted paths may in general 
+%   consequently be some inverse of the connectivity matrix.
+%       The number of edges in shortest weighted paths may in general
 %   exceed the number of edges in shortest binary paths (i.e. shortest
-%   paths computed on the binarized connectivity matrix), because shortest 
-%   weighted paths have the minimal weighted distance, but not necessarily 
+%   paths computed on the binarized connectivity matrix), because shortest
+%   weighted paths have the minimal weighted distance, but not necessarily
 %   the minimal number of edges.
 %       Lengths between disconnected nodes are set to Inf.
 %       Lengths on the main diagonal are set to 0.
@@ -220,7 +220,7 @@ end
 
 %%
 function [H1,H2,Mb,CliqList,Sb]=CliqHierarchyTree2s(Apm,method1);
-%% ClqHierarchyTree2 looks for 3-cliques of a maximal planar graph, then 
+%% ClqHierarchyTree2 looks for 3-cliques of a maximal planar graph, then
 % construct hierarchy of the cliques with the definition of 'inside' a
 % clique to be a subgraph with smaller size, when the entire graph is
 % made disjoint by removing the clique. Refer and cite to:
@@ -231,20 +231,20 @@ function [H1,H2,Mb,CliqList,Sb]=CliqHierarchyTree2s(Apm,method1);
 % Function call: [H1,Hb,Mb,CliqList,Sb]=CliqHierarchyTree2s(Apm,method1);
 %
 % Input
-% 
+%
 % Apm = N x N Adjacency matrix of a maximal planar graph
 %
 % method = Choose between 'uniqueroot' and 'equalroot'. Assigns
 %          connections between final root cliques. Uses Voronoi
-%          tesselation between tiling triangles. 
+%          tesselation between tiling triangles.
 %
-% Output   
+% Output
 
 % H1 = Nc x Nc adjacency matrix for 3-clique hierarchical tree where Nc is the number of 3-cliques
 % H2 = Nb x Nb adjacency matrix for bubble hierarchical tree where Nb is the number of bubbles
 % Mb = Nc x Nb matrix bubble membership matrix. Mb(n,bi)=1 indicates that 3-clique n belongs to bi bubble.
 % CliqList = Nc x 3 matrix. Each row vector lists three vertices consisting a 3-clique in the maximal planar graph.
-% Sb = Nc x 1 vector. Sb(n)=1 indicates nth 3-clique is separating. 
+% Sb = Nc x 1 vector. Sb(n)=1 indicates nth 3-clique is separating.
 N=size(Apm,1);
 %IndxTotal=1:N;
 if issparse(Apm)~=1;
@@ -285,7 +285,7 @@ Root=find(Pred==0);
 clear n
 switch lower(method1)
     case 'uniqueroot'
-        
+
         if length(Root)>1;
             Pred=[Pred(:);0];
             Pred(Root)=length(Pred);
@@ -296,7 +296,7 @@ switch lower(method1)
                 H(n,Pred(n))=sparse(1);
             end
         end
-        H=H+H'; 
+        H=H+H';
     case 'equalroot'
         if length(Root)>1;
             %RootCliq=CliqList(Root,:);
@@ -312,7 +312,7 @@ switch lower(method1)
             H=H+H';H=H+Adj;
         else
             H=[];
-        end   
+        end
 end
 H1=H;
 if isempty(H1)~=1;
@@ -426,8 +426,8 @@ end
 
 %%
 function [K3,E,clique]=clique3(A)
-% Computes the list of 3-cliques. 
-% 
+% Computes the list of 3-cliques.
+%
 % Input
 %
 % A = NxN sparse adjacency matrix
@@ -435,7 +435,7 @@ function [K3,E,clique]=clique3(A)
 % Output
 %
 % clique = Nc x 3 matrix. Each row vector contains the list of vertices for
-% a 3-clique. 
+% a 3-clique.
 A=A-diag(diag(A));
 A=(A~=0);
 A2=A^2;
@@ -449,7 +449,7 @@ for n=1:length(r);
     indx=find(a~=0);
     K3{n}=indx;
     N3(n)=length(indx);
-end 
+end
 E=[r c];
 clique=[0 0 0];
 for n=1:length(r);
@@ -485,18 +485,18 @@ function [distance,branch] = breadth(CIJ,source)
 %                           (0 for source vertex)
 %               branch,     vertex that precedes i in the breadth-first search tree
 %                           (-1 for source vertex)
-%        
-%   Notes: Breadth-first search tree does not contain all paths (or all 
+%
+%   Notes: Breadth-first search tree does not contain all paths (or all
 %   shortest paths), but allows the determination of at least one path with
-%   minimum distance. The entire graph is explored, starting from source 
+%   minimum distance. The entire graph is explored, starting from source
 %   vertex 'source'.
 %
 %
 %   Olaf Sporns, Indiana University, 2002/2007/2008
 N = size(CIJ,1);
 % colors: white, gray, black
-white = 0; 
-gray = 1; 
+white = 0;
+gray = 1;
 black = 2;
 % initialize colors
 color = zeros(1,N);
@@ -533,23 +533,23 @@ end
 %%
 function [Adjv,Tc]=BubbleCluster8s(Rpm,Dpm,Hb,Mb,Mv,CliqList)
 % Obtains non-discrete and discrete clusterings from the bubble topology of
-% PMFG. 
-% 
+% PMFG.
+%
 % Function call: [Adjv,T8]=BubbleCluster8s(Rpm,Dpm,Hb,Mb,Mv,CliqList);
 %
 % Input
-% 
+%
 % Rpm = N x N sparse weighted adjacency matrix of PMFG
 % Dpm = N x N shortest path lengths matrix of PMFG
 % Hb = Undirected bubble tree of PMFG
 % Mb = Nc x Nb bubble membership matrix for 3-cliques. Mb(n,bi)=1 indicates that
-% 3-clique n belongs to bi bubble. 
-% Mv = N x Nb bubble membership matrix for vertices. 
+% 3-clique n belongs to bi bubble.
+% Mv = N x Nb bubble membership matrix for vertices.
 % CliqList = Nc x 3 matrix of list of 3-cliques. Each row vector contains
-% the list of vertices for a particular 3-clique. 
+% the list of vertices for a particular 3-clique.
 %
 % Output
-% 
+%
 % Adjv = N x Nk cluster membership matrix for vertices for non-discrete
 % clustering via the bubble topology. Adjv(n,k)=1 indicates cluster
 % membership of vertex n to kth non-discrete cluster.
@@ -584,7 +584,7 @@ if length(indx)>1;
         Mdjv(uv(v),imx(1))=1;% Pick the most strongly associated converging bubble
     end
     [v, ci]=find(Mdjv~=0);Tc(v)=ci;clear v ci% Assign discrete cluster memebership of vertices in the converging bubbles.
-    
+
     Udjv=Dpm*(Mdjv*diag(1./sum(Mdjv~=0)));Udjv(Adjv==0)=inf;% Compute the distance between a vertex and the converging bubbles.
     [mn, imn]=min(Udjv(sum(Mdjv')==0,:)');% Look for the closest converging bubble
     Tc(Tc==0)=imn;% Assign discrete cluster membership according to the distances to the converging bubbles
@@ -596,22 +596,22 @@ end
 %%
 function [Hc,Sep]=DirectHb(Rpm,Hb,Mb,Mv,CliqList);
 % Computes directions on each separating 3-clique of a maximal planar
-% graph, hence computes Directed Bubble Hierarchical Tree (DBHT). 
-% 
+% graph, hence computes Directed Bubble Hierarchical Tree (DBHT).
+%
 % Function call: Hc=DirectHb(Rpm,Hb,Mb,Mv,CliqList);
 %
 % Input
 % Rpm = N x N sparse weighted adjacency matrix of PMFG
 % Hb = Undirected bubble tree of PMFG
 % Mb = Nc x Nb bubble membership matrix for 3-cliques. Mb(n,bi)=1 indicates that
-% 3-clique n belongs to bi bubble. 
-% Mv = N x Nb bubble membership matrix for vertices. 
+% 3-clique n belongs to bi bubble.
+% Mv = N x Nb bubble membership matrix for vertices.
 % CliqList = Nc x 3 matrix of list of 3-cliques. Each row vector contains
-% the list of vertices for a particular 3-clique. 
+% the list of vertices for a particular 3-clique.
 %
 % Output
 % Hc = Nb x Nb unweighted directed adjacency matrix of DBHT. Hc(i,j)=1
-% indicates a directed edge from bubble i to bubble j. 
+% indicates a directed edge from bubble i to bubble j.
 Hb=(Hb~=0);
 [r,c]=find(triu(Hb)~=0);
 CliqEdge=[];
@@ -646,21 +646,21 @@ end
 
 function Z=HierarchyConstruct4s(Rpm,Dpm,Tc,Adjv,Mv);
 % Constructs intra- and inter-cluster hierarchy by utilizing Bubble
-% hierarchy structure of a maximal planar graph, namely Planar Maximally Filtered Graph (PMFG). 
+% hierarchy structure of a maximal planar graph, namely Planar Maximally Filtered Graph (PMFG).
 %
 % Input
 % Rpm = NxN Weighted adjacency matrix of PMFG.
-% Dpm = NxN shortest path length matrix of PMFG. 
+% Dpm = NxN shortest path length matrix of PMFG.
 % Tc = Nx1 cluster membership vector from DBHT clustering. Tc(n)=z_i
-% indicate cluster of nth vertex. 
-% Adjv = Bubble cluster membership matrix from BubbleCluster8s. 
-% Mv = Bubble membership of vertices from BubbleCluster8s. 
+% indicate cluster of nth vertex.
+% Adjv = Bubble cluster membership matrix from BubbleCluster8s.
+% Mv = Bubble membership of vertices from BubbleCluster8s.
 %
 % Output
 %
 % Z = (N-1)x3 linkage matrix, in the same format as the output from matlab
 % function 'linkage'. To plot the respective dendrogram, use dendrogram(Z).
-% Use 'help linkage' for the details 
+% Use 'help linkage' for the details
 N=size(Dpm,1);
 kvec=unique(Tc);
 LabelVec1=[1:N];LinkageDist=[0];
@@ -670,7 +670,7 @@ Z=[];
 for n=1:length(kvec);
     Mc=bsxfun(@times,E(:,kvec(n)),Mv);%Get the list of bubbles which coincide with nth cluster
     Mvv=BubbleMember(Dpm,Rpm,Mv,Mc);%Assign each vertex in the nth cluster to a specific bubble.
-    Bub=find(sum(Mvv)>0);%Get the list of bubbles which contain the vertices of nth cluster 
+    Bub=find(sum(Mvv)>0);%Get the list of bubbles which contain the vertices of nth cluster
     nc=sum(Tc==kvec(n))-1;
     %Apply the linkage within the bubbles.
     for m=1:length(Bub);
@@ -690,7 +690,7 @@ for n=1:length(kvec);
             end
             clear LabelVec dpm rpm LabelVec2
         end
-        clear V 
+        clear V
     end
     V=find(E(:,kvec(n))~=0);
     dpm=Dpm(V,V);
@@ -722,7 +722,7 @@ for n=1:(length(kvec)-1);
     LabelVec1=LabelVec2;
     clear PairLink dvu
 end
-clear LabelVec1 
+clear LabelVec1
 if length(unique(LabelVec2))>1;
     disp('Something Wrong in Merging. Check the codes.');
     return
@@ -761,7 +761,7 @@ for n=1:length(vu);
     clear v_bub all_bub frac bub vec mx imx
 end
 end
-    
+
 %%
 function Z=DendroConstruct(Zi,LabelVec1,LabelVec2,LinkageDist);
 indx=(bsxfun(@eq,LabelVec1',LabelVec2')~=1);

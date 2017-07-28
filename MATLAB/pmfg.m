@@ -1,7 +1,7 @@
 %
-% pmfg calculate the the planar maximally filtered  graph (PMFG) 
-% from a matrix of weights W. 
-% P = pmfg(W) returns a sparse matrix with P(i,j)=W(i,j) if the edge i-j 
+% pmfg calculate the the planar maximally filtered  graph (PMFG)
+% from a matrix of weights W.
+% P = pmfg(W) returns a sparse matrix with P(i,j)=W(i,j) if the edge i-j
 % is present and P(i,j)=0 if not.
 % W should be sparse, real, square and symmetric matrix.
 %
@@ -9,23 +9,23 @@
 % The University of Kent, UK
 % t.aste(at)kent.ac.uk
 %
-% This function uses "matlab_bgl" package from 
+% This function uses "matlab_bgl" package from
 % http://www.stanford.edu/~Edgleich/programs/matlab_bgl/
 %
 % Please reference
 %
-% T. Aste, T. Di Matteo and S. T. Hyde, 
-% "Complex Networks on Hyperbolic Surfaces", 
-% Physica A 346 (2005) 20-26. 
+% T. Aste, T. Di Matteo and S. T. Hyde,
+% "Complex Networks on Hyperbolic Surfaces",
+% Physica A 346 (2005) 20-26.
 %
-% M. Tumminello, T. Aste, T. Di Matteo, R.N. Mantegna, 
-% "A tool for filtering information in complex systems", 
-% Proceedings of the National Academy of Sciences of the United States 
-% of America (PNAS) 102 (2005) 10421-10426. 
+% M. Tumminello, T. Aste, T. Di Matteo, R.N. Mantegna,
+% "A tool for filtering information in complex systems",
+% Proceedings of the National Academy of Sciences of the United States
+% of America (PNAS) 102 (2005) 10421-10426.
 %
 % in your published research.
 
-%  
+%
 %
 %-----------------------------------------------------------------------------------------
 % This program is free software: you can redistribute it and/or modify
@@ -41,10 +41,10 @@
 % You should receive a copy of the GNU General Public License
 % along with this program.  See also <http://www.gnu.org/licenses/>.
 %-----------------------------------------------------------------------------------------
- 
- 
+
+
 function P = pmfg(W)
- 
+
 if size(W,1)~=size(W,2)
     fprintf('W must be square \n');
     P =[];
@@ -89,7 +89,7 @@ while( E < 3*(N-2) ) % continue while all edges for a maximal planar graph are i
     else
         P1 = P; % No: discard the edge
     end
-    if floor(ii/1000)==ii/1000; 
+    if floor(ii/1000)==ii/1000;
         %save('P.mat','P','ii')
         fprintf('Build P: %d    :   %2.2f per-cent done\n',ii,E/(3*(N-2))*100);
         if ii > (N*(N-1)/2)
@@ -101,12 +101,11 @@ while( E < 3*(N-2) ) % continue while all edges for a maximal planar graph are i
 end
 P = full(P)
 end
- 
- 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% to plot it you can use %%%%%%%
 % xy = chrobak_payne_straight_line_drawing(P);
 % figure
 % gplotwl(P,xy,Labels,'-b');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-

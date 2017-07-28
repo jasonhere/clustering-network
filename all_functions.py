@@ -356,3 +356,5 @@ def movingARI(clusters, nodenames):
         ARI[i - 1] = adjusted_rand_score(createlabel(clusters[sorteddates[i]], nodenames)[1],
                                          createlabel(clusters[sorteddates[i - 1]], nodenames)[1])
     return ARI
+
+    # testing remote jupyternotebook via ssh
